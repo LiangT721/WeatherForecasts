@@ -6,17 +6,58 @@ let day2 = info.list[5].dt_txt.slice(0, 10);
 let day3 = info.list[13].dt_txt.slice(0, 10);
 let day4 = info.list[21].dt_txt.slice(0, 10);
 let day5 = info.list[29].dt_txt.slice(0, 10);
+
 let day1Weather = info.list[0].weather[0].main;
-let day1Temp = Math.round((info.list[0].main.temp - 273.15) * 10) / 10;
 let day2Weather = info.list[5].weather[0].main;
-let day2Temp = Math.round((info.list[5].main.temp - 273.15) * 10) / 10;
 let day3Weather = info.list[13].weather[0].main;
-let day3Temp = Math.round((info.list[13].main.temp - 273.15) * 10) / 10;
 let day4Weather = info.list[21].weather[0].main;
-let day4Temp = Math.round((info.list[21].main.temp - 273.15) * 10) / 10;
 let day5Weather = info.list[29].weather[0].main;
+
+let day1Temp = Math.round((info.list[0].main.temp - 273.15) * 10) / 10;
+let day2Temp = Math.round((info.list[5].main.temp - 273.15) * 10) / 10;
+let day3Temp = Math.round((info.list[13].main.temp - 273.15) * 10) / 10;
+let day4Temp = Math.round((info.list[21].main.temp - 273.15) * 10) / 10;
 let day5Temp = Math.round((info.list[29].main.temp - 273.15) * 10) / 10;
-console.log(day1Temp);
+
+let day1TempMax = Math.round((info.list[0].main.temp_max - 273.15) * 10) / 10;
+let day2TempMax = Math.round((info.list[5].main.temp_max - 273.15) * 10) / 10;
+let day3TempMax = Math.round((info.list[13].main.temp_max - 273.15) * 10) / 10;
+let day4TempMax = Math.round((info.list[21].main.temp_max - 273.15) * 10) / 10;
+let day5TempMax = Math.round((info.list[29].main.temp_max - 273.15) * 10) / 10;
+
+let day1TempMin = Math.round((info.list[0].main.temp_min - 273.15) * 10) / 10;
+let day2TempMin = Math.round((info.list[5].main.temp_min - 273.15) * 10) / 10;
+let day3TempMin = Math.round((info.list[13].main.temp_min - 273.15) * 10) / 10;
+let day4TempMin = Math.round((info.list[21].main.temp_min - 273.15) * 10) / 10;
+let day5TempMin = Math.round((info.list[29].main.temp_min - 273.15) * 10) / 10;
+
+let day1Wind = info.list[0].wind.speed
+let day2Wind = info.list[5].wind.speed
+let day3Wind = info.list[13].wind.speed
+let day4Wind = info.list[21].wind.speed
+let day5Wind = info.list[29].wind.speed
+
+let day1Pressure = info.list[0].main.pressure
+let day2Pressure = info.list[5].main.pressure
+let day3Pressure = info.list[13].main.pressure
+let day4Pressure = info.list[21].main.pressure
+let day5Pressure = info.list[29].main.pressure
+
+let day1Humidity = info.list[0].main.humidity
+let day2Humidity = info.list[5].main.humidity
+let day3Humidity = info.list[13].main.humidity
+let day4Humidity = info.list[21].main.humidity
+let day5Humidity = info.list[29].main.humidity
+
+let day1Precitation = info.list[0].clouds.all
+let day2Precitation = info.list[5].clouds.all
+let day3Precitation = info.list[13].clouds.all
+let day4Precitation = info.list[21].clouds.all
+let day5Precitation = info.list[29].clouds.all
+
+
+
+console.log(day1Humidity);
 console.log(day2Temp);
 console.log(day3Temp);
 console.log(day4Temp);
@@ -56,6 +97,101 @@ document.getElementById("dayTwoTemp").innerHTML = day2Temp;
 document.getElementById("dayThreeTemp").innerHTML = day3Temp;
 document.getElementById("dayFourTemp").innerHTML = day4Temp;
 document.getElementById("dayFiveTemp").innerHTML = day5Temp;
+
+
+
+function Day1Change() {
+    console.log(document.getElementById("day1div"));
+    document.getElementById("day1div").style.filter = "drop-shadow(1px 1px 2px black)";
+    document.getElementById("day2div").style.filter = "";
+    document.getElementById("day3div").style.filter = "";
+    document.getElementById("day4div").style.filter = "";
+    document.getElementById("day5div").style.filter = "";
+    document.getElementById("Max-temp").innerHTML = day1TempMax;
+    document.getElementById("Min-temp").innerHTML = day1TempMin;
+    document.getElementById("Wind").innerHTML = day1Wind;
+    document.getElementById("Pressure").innerHTML = day1Pressure;
+    document.getElementById("Humidity").innerHTML = day1Humidity;
+    document.getElementById("Precitation").innerHTML = day1Precitation;
+    // document.getElementById('detail').style.display = "grid";
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('city-name').style.transform = "translateY(0)";
+
+}
+
+function Day2Change() {
+    document.getElementById("day2div").style.filter = "drop-shadow(1px 1px 2px black)";
+    document.getElementById("day1div").style.filter = "";
+    document.getElementById("day3div").style.filter = "";
+    document.getElementById("day4div").style.filter = "";
+    document.getElementById("day5div").style.filter = "";
+    document.getElementById("Max-temp").innerHTML = day2TempMax;
+    document.getElementById("Min-temp").innerHTML = day2TempMin;
+    document.getElementById("Wind").innerHTML = day2Wind;
+    document.getElementById("Pressure").innerHTML = day2Pressure;
+    document.getElementById("Humidity").innerHTML = day2Humidity;
+    document.getElementById("Precitation").innerHTML = day2Precitation;
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('city-name').style.transform = "translateY(0)";
+}
+
+function Day3Change() {
+    document.getElementById("day3div").style.filter = "drop-shadow(1px 1px 2px black)";
+    document.getElementById("day2div").style.filter = "";
+    document.getElementById("day1div").style.filter = "";
+    document.getElementById("day4div").style.filter = "";
+    document.getElementById("day5div").style.filter = "";
+    document.getElementById("Max-temp").innerHTML = day3TempMax;
+    document.getElementById("Min-temp").innerHTML = day3TempMin;
+    document.getElementById("Wind").innerHTML = day3Wind;
+    document.getElementById("Pressure").innerHTML = day3Pressure;
+    document.getElementById("Humidity").innerHTML = day3Humidity;
+    document.getElementById("Precitation").innerHTML = day3Precitation;
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('city-name').style.transform = "translateY(0)";
+}
+
+function Day4Change() {
+    document.getElementById("day4div").style.filter = "drop-shadow(1px 1px 2px black)";
+    document.getElementById("day2div").style.filter = "";
+    document.getElementById("day3div").style.filter = "";
+    document.getElementById("day1div").style.filter = "";
+    document.getElementById("day5div").style.filter = "";
+    document.getElementById("Max-temp").innerHTML = day4TempMax;
+    document.getElementById("Min-temp").innerHTML = day4TempMin;
+    document.getElementById("Wind").innerHTML = day4Wind;
+    document.getElementById("Pressure").innerHTML = day4Pressure;
+    document.getElementById("Humidity").innerHTML = day4Humidity;
+    document.getElementById("Precitation").innerHTML = day4Precitation;
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('city-name').style.transform = "translateY(0)";
+}
+
+function Day5Change() {
+    document.getElementById("day5div").style.filter = "drop-shadow(1px 1px 2px black)";
+    document.getElementById("day2div").style.filter = "";
+    document.getElementById("day3div").style.filter = "";
+    document.getElementById("day4div").style.filter = "";
+    document.getElementById("day1div").style.filter = "";
+    document.getElementById("Max-temp").innerHTML = day5TempMax;
+    document.getElementById("Min-temp").innerHTML = day5TempMin;
+    document.getElementById("Wind").innerHTML = day5Wind;
+    document.getElementById("Pressure").innerHTML = day5Pressure;
+    document.getElementById("Humidity").innerHTML = day5Humidity;
+    document.getElementById("Precitation").innerHTML = day5Precitation;
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('city-name').style.transform = "translateY(0)";
+}
 
 
 

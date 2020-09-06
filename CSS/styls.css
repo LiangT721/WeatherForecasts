@@ -5,6 +5,7 @@
 
 body {
   background-image: url(../images/BgSun.jpg);
+  overflow: hidden;
 }
 
 p {
@@ -12,6 +13,7 @@ p {
 }
 
 #background {
+  overflow: hidden;
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -23,7 +25,11 @@ p {
   justify-items: center;
 }
 
-#background select {
+#background #city-name {
+  -webkit-transform: translateY(120%);
+          transform: translateY(120%);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
   width: 30vw;
 }
 
@@ -32,6 +38,10 @@ p {
   display: grid;
   justify-items: center;
   row-gap: 2vh;
+  -webkit-transform: translateY(80%);
+          transform: translateY(80%);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 #background #current-info #day {
@@ -73,6 +83,10 @@ p {
   justify-items: center;
   -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  -webkit-transform: translateY(120%);
+          transform: translateY(120%);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 #background #five-day-forecasts > div {
@@ -118,6 +132,10 @@ p {
   border: 1px solid black;
   display: -ms-grid;
   display: grid;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

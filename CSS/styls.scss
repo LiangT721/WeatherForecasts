@@ -5,6 +5,7 @@
 
 body {
     background-image: url(../images/BgSun.jpg);
+    overflow: hidden;
 }
 
 p {
@@ -12,19 +13,24 @@ p {
 }
 
 #background {
+    overflow: hidden;
     position: relative;
     width: 100vw;
     height: 100vh;
     display: grid;
     align-items: center;
     justify-items: center;
-    select {
+    #city-name {
+        transform: translateY(120%);
+        transition: all 1s ease-in-out;
         width: 30vw;
     }
     #current-info {
         display: grid;
         justify-items: center;
         row-gap: 2vh;
+        transform: translateY(80%);
+        transition: all 1s ease-in-out;
         #day {
             font-size: 3rem;
         }
@@ -53,6 +59,8 @@ p {
         align-items: center;
         justify-items: center;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        transform: translateY(120%);
+        transition: all 1s ease-in-out;
         >div {
             display: grid;
             align-items: center;
@@ -60,6 +68,7 @@ p {
             width: 18vw;
             row-gap: 2vh;
             .day-Temp {
+                // filter: drop-shadow(1px 1px 1px black);
                 box-sizing: border-box;
                 width: 16vw;
                 height: 15vh;
@@ -85,6 +94,8 @@ p {
         background-color: #fff;
         border: 1px solid black;
         display: grid;
+        transform: translateY(100%);
+        transition: all 1s ease-in-out;
         align-items: center;
         justify-items: center;
         grid-template-columns: 1fr 1fr;
