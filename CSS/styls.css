@@ -46,8 +46,8 @@ p {
   display: -ms-grid;
   display: grid;
   justify-items: center;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  -ms-grid-columns: 3fr 1fr;
+      grid-template-columns: 3fr 1fr;
 }
 
 #background #current-info #temp #temp-num {

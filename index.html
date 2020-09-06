@@ -9,19 +9,10 @@
 </head>
 
 <body>
-    <!-- <button id="get-current-weather" onclick="CurrentWeather()">Current Weather</button>
-    <button id="get-current-weather" onclick="FiveDayWeather()">5day Weather</button> -->
-
-    <!-- <div>City : <span id="city"></span></div>
-    <div>Weather : <span id="weather"></span></div>
-    <div>Temperature : <span id="temperature"></span></div>
-    <div>Temperature Max: <span id="temperature-max"></span></div>
-    <div>Temperature Min: <span id="temperature-min"></span></div>
-    <div>Feels Like : <span id="feels-like"></span></div>
-    <div>Pressure : <span id="pressure"></span></div> -->
     <div id="background">
-        <select name="city name" id="city-name">
-            <option value="Calgary">Calgary</option>
+        <select name="city-name" id="city-name">
+            <option value="calgary">Calgary</option>
+            <option value="beijing">Beijing</option>
         </select>
         <div id="current-info">
             <p id="day">today</p>
@@ -52,7 +43,7 @@
                 <p id="day3" class="day">Monday</p>
                 <div class="day-Temp">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayThreeImg">
-                    <p class="dayTemp" i><span d="dayThreeTemp">15</span>&#176</p>
+                    <p class="dayTemp"><span id="dayThreeTemp">15</span>&#176</p>
                 </div>
             </div>
             <div id="dayFour">
