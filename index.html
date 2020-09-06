@@ -9,14 +9,95 @@
 </head>
 
 <body>
-    <button id="get-current-weather" onclick="CurrentWeather()">Current Weather</button>
-    <div>City : <span id="city"></span></div>
+    <!-- <button id="get-current-weather" onclick="CurrentWeather()">Current Weather</button>
+    <button id="get-current-weather" onclick="FiveDayWeather()">5day Weather</button> -->
+
+    <!-- <div>City : <span id="city"></span></div>
     <div>Weather : <span id="weather"></span></div>
     <div>Temperature : <span id="temperature"></span></div>
     <div>Temperature Max: <span id="temperature-max"></span></div>
     <div>Temperature Min: <span id="temperature-min"></span></div>
     <div>Feels Like : <span id="feels-like"></span></div>
-    <div>Pressure : <span id="pressure"></span></div>
+    <div>Pressure : <span id="pressure"></span></div> -->
+    <div id="background">
+        <select name="city name" id="city-name">
+            <option value="Calgary">Calgary</option>
+        </select>
+        <div id="current-info">
+            <p id="day">today</p>
+            <p id="date">2020-9-6</p>
+            <div id="temp">
+                <p id="temp-num">15</p>
+                <p id="sign">&#176C</p>
+            </div>
+            <p id="feel-like">feels like:
+                <span id="feels-like">13</span>&#176C</p>
+        </div>
+        <div id="five-day-forecasts">
+            <div id="dayOne">
+                <p id="day1" class="day">Monday</p>
+                <div class="day-Temp">
+                    <img src="./images/sun.png" alt="" class="dayImg" id="dayOneImg">
+                    <p class="dayTemp"><span id="dayOneTemp">15</span>&#176</p>
+                </div>
+            </div>
+            <div id="dayTwo">
+                <p id="day2" class="day">Monday</p>
+                <div class="day-Temp">
+                    <img src="./images/sun.png" alt="" class="dayImg" id="dayTwoImg">
+                    <p class="dayTemp"><span id="dayTwoTemp">15</span>&#176</p>
+                </div>
+            </div>
+            <div id="dayThree">
+                <p id="day3" class="day">Monday</p>
+                <div class="day-Temp">
+                    <img src="./images/sun.png" alt="" class="dayImg" id="dayThreeImg">
+                    <p class="dayTemp" i><span d="dayThreeTemp">15</span>&#176</p>
+                </div>
+            </div>
+            <div id="dayFour">
+                <p id="day4" class="day">Monday</p>
+                <div class="day-Temp">
+                    <img src="./images/sun.png" alt="" class="dayImg" id="dayFourImg">
+                    <p class="dayTemp"><span id="dayFourTemp">15</span>&#176</p>
+                </div>
+            </div>
+            <div id="dayFive">
+                <p id="day5" class="day">Monday</p>
+                <div class="day-Temp">
+                    <img src="./images/sun.png" alt="" class="dayImg" id="dayFiveImg">
+                    <p class="dayTemp"><span id="dayFiveTemp">15</span>&#176</p>
+                </div>
+            </div>
+        </div>
+        <div id="detail">
+            <div id="temp-max">
+                <p>Maximun Temperature</p>
+                <p><span id="feels-like">13</span>&#176C</p>
+            </div>
+            <div id="temp-min">
+                <p>Minimun Temperature</p>
+                <p><span id="feels-like">5</span>&#176C</p>
+            </div>
+            <div id="wind">
+                <p>Wind</p>
+                <p><span id="feels-like">28</span>&#176C</p>
+            </div>
+            <div id="Pressure">
+                <p>Pressure</p>
+                <p><span id="feels-like">90</span>&#176C</p>
+            </div>
+            <div id="humidity">
+                <p>Humidity</p>
+                <p><span id="feels-like">38</span>%</p>
+            </div>
+            <div id="precitation">
+                <p>precitation</p>
+                <p><span id="feels-like">50</span>%</p>
+            </div>
+        </div>
+    </div>
+
 
 
     <script src="./JS/app.js "></script>

@@ -1,1 +1,142 @@
-/* No CSS *//*# sourceMappingURL=styls.css.map */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url(../images/BgSun.jpg);
+}
+
+p {
+  text-transform: capitalize;
+}
+
+#background {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+#background select {
+  width: 30vw;
+}
+
+#background #current-info {
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
+  row-gap: 2vh;
+}
+
+#background #current-info #day {
+  font-size: 3rem;
+}
+
+#background #current-info #date {
+  font-size: 1rem;
+}
+
+#background #current-info #temp {
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+#background #current-info #temp #temp-num {
+  font-size: 3rem;
+}
+
+#background #current-info #temp #sign {
+  font-size: 2rem;
+}
+
+#background #current-info #feel-like {
+  font-size: 1rem;
+}
+
+#background #five-day-forecasts {
+  width: 90vw;
+  margin-left: 5vw;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#background #five-day-forecasts > div {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  width: 18vw;
+  row-gap: 2vh;
+}
+
+#background #five-day-forecasts > div .day-Temp {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 16vw;
+  height: 15vh;
+  border: 1px solid black;
+  border-radius: 9vw;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+}
+
+#background #five-day-forecasts > div .day-Temp .dayImg {
+  width: 12vw;
+}
+
+#background #detail {
+  -ms-grid-row-align: end;
+      align-self: end;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100vw;
+  border-radius: 10px 10px 0 0;
+  height: 35vh;
+  background-color: #fff;
+  border: 1px solid black;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+#background #detail > div {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  row-gap: 5px;
+}
+
+#background #detail > div p {
+  font-size: 1.2rem;
+}
+/*# sourceMappingURL=styls.css.map */

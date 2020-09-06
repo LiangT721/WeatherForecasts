@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url(../images/BgSun.jpg);
+}
+
+p {
+    text-transform: capitalize;
+}
+
+#background {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    select {
+        width: 30vw;
+    }
+    #current-info {
+        display: grid;
+        justify-items: center;
+        row-gap: 2vh;
+        #day {
+            font-size: 3rem;
+        }
+        #date {
+            font-size: 1rem;
+        }
+        #temp {
+            display: grid;
+            justify-items: center;
+            grid-template-columns: 1fr 1fr;
+            #temp-num {
+                font-size: 3rem;
+            }
+            #sign {
+                font-size: 2rem;
+            }
+        }
+        #feel-like {
+            font-size: 1rem;
+        }
+    }
+    #five-day-forecasts {
+        width: 90vw;
+        margin-left: 5vw;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        >div {
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            width: 18vw;
+            row-gap: 2vh;
+            .day-Temp {
+                box-sizing: border-box;
+                width: 16vw;
+                height: 15vh;
+                border: 1px solid black;
+                border-radius: 9vw;
+                display: grid;
+                align-items: center;
+                justify-items: center;
+                .dayImg {
+                    width: 12vw;
+                }
+            }
+        }
+    }
+    #detail {
+        align-self: end;
+        position: relative;
+        // top: 10vh;
+        box-sizing: border-box;
+        width: 100vw;
+        border-radius: 10px 10px 0 0;
+        height: 35vh;
+        background-color: #fff;
+        border: 1px solid black;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        grid-template-columns: 1fr 1fr;
+        >div {
+            display: grid;
+            align-items: center;
+            justify-items: center;
+            row-gap: 5px;
+            // border: 1px solid grey;
+            p {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
