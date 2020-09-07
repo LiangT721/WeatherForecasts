@@ -8,7 +8,8 @@ body {
   overflow: hidden;
 }
 
-p {
+p,
+span {
   text-transform: capitalize;
 }
 
@@ -25,31 +26,103 @@ p {
   justify-items: center;
 }
 
-#background #city-name {
-  -webkit-transform: translateY(120%);
-          transform: translateY(120%);
+#background #addNew {
+  z-index: 99;
+  width: 50%;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+  -webkit-column-gap: 1vw;
+          column-gap: 1vw;
+  position: absolute;
+  padding: 2vh 2vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#background #addNew #Input {
+  width: 25vw;
+  -ms-grid-column-align: right;
+      justify-self: right;
+}
+
+#background #addNew #add {
+  -ms-grid-column-align: left;
+      justify-self: left;
+}
+
+#background #option {
+  z-index: 20;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  -webkit-column-gap: 1vw;
+          column-gap: 1vw;
+  -webkit-transform: translateY(200%);
+          transform: translateY(200%);
   -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
-  width: 30vw;
+}
+
+#background #option #city-name {
+  width: 25vw;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+#background #option #city-name option {
+  text-transform: capitalize;
+  padding: 0 1vw;
+}
+
+#background #option #add {
+  border-radius: 0.2rem;
+  font-size: 1.1rem;
+  line-height: 1.2rem;
+  text-transform: capitalize;
+  padding: 0 1vw;
 }
 
 #background #current-info {
+  width: 100%;
   display: -ms-grid;
   display: grid;
   justify-items: center;
   row-gap: 2vh;
-  -webkit-transform: translateY(80%);
-          transform: translateY(80%);
+  -webkit-transform: translateY(60%);
+          transform: translateY(60%);
   -webkit-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
 }
 
-#background #current-info #day {
-  font-size: 3rem;
+#background #current-info #city {
+  font-size: 2rem;
 }
 
 #background #current-info #date {
   font-size: 1rem;
+}
+
+#background #current-info #day {
+  font-size: 1.2rem;
+}
+
+#background #current-info #main {
+  font-size: 2rem;
 }
 
 #background #current-info #temp {
@@ -61,11 +134,11 @@ p {
 }
 
 #background #current-info #temp #temp-num {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 #background #current-info #temp #sign {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 #background #current-info #feel-like {
@@ -74,7 +147,6 @@ p {
 
 #background #five-day-forecasts {
   width: 90vw;
-  margin-left: 5vw;
   display: -ms-grid;
   display: grid;
   -webkit-box-align: center;
@@ -113,6 +185,11 @@ p {
       -ms-flex-align: center;
           align-items: center;
   justify-items: center;
+}
+
+#background #five-day-forecasts > div .day-Temp:hover {
+  -webkit-filter: drop-shadow(1px 1px 1px black);
+          filter: drop-shadow(1px 1px 1px black);
 }
 
 #background #five-day-forecasts > div .day-Temp .dayImg {

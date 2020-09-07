@@ -4,19 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <link rel="stylesheet" href="./CSS/styls.css">
     <title>Document</title>
 </head>
 
-<body>
+<body id="Body">
     <div id="background">
-        <select name="city-name" id="city-name">
-            <option value="calgary">Calgary</option>
-            <option value="beijing">Beijing</option>
-        </select>
+        <div id="addNew">
+            <input type="text" id="Input">
+            <button id="save" onclick="getName()">Check</button>
+            <button id="add" onclick="addCity()">Save</button>
+        </div>
+        <div id="option">
+            <select name="city-name" id="city-name">
+                <option value="calgary">Calgary</option>
+                <option value="beijing">Beijing</option>
+            </select>
+            <button id="add" onclick="addShow()">Add</button>
+        </div>
         <div id="current-info">
-            <p id="day">today</p>
-            <p id="date">2020-9-6</p>
+
+            <p id="city">today</p>
+            <div><span id="day">Today  </span><span id="date">2020-9-6</span></div>
+            <p id="main">sun</p>
             <div id="temp">
                 <p id="temp-num">15</p>
                 <p id="sign">&#176C</p>
@@ -25,35 +36,35 @@
                 <span id="feels-like">13</span>&#176C</p>
         </div>
         <div id="five-day-forecasts">
-            <div id="dayOne" onclick="Day1Change()">
+            <div id="dayOne" onclick="DayChange(day1All)">
                 <p id="day1" class="day">Monday</p>
                 <div class="day-Temp" id="day1div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayOneImg">
                     <p class="dayTemp"><span id="dayOneTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayTwo" onclick="Day2Change()">
+            <div id="dayTwo" onclick="DayChange(day2All)">
                 <p id="day2" class="day">Monday</p>
                 <div class="day-Temp" id="day2div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayTwoImg">
                     <p class="dayTemp"><span id="dayTwoTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayThree" onclick="Day3Change()">
+            <div id="dayThree" onclick="DayChange(day3All)">
                 <p id="day3" class="day">Monday</p>
                 <div class="day-Temp" id="day3div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayThreeImg">
                     <p class="dayTemp"><span id="dayThreeTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayFour" onclick="Day4Change()">
+            <div id="dayFour" onclick="DayChange(day4All)">
                 <p id="day4" class="day">Monday</p>
                 <div class="day-Temp" id="day4div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayFourImg">
                     <p class="dayTemp"><span id="dayFourTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayFive" onclick="Day5Change()">
+            <div id="dayFive" onclick="DayChange(day5All)">
                 <p id="day5" class="day">Monday</p>
                 <div class="day-Temp" id="day5div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayFiveImg">
