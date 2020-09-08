@@ -20,6 +20,7 @@ document.getElementById('city-name').addEventListener('change', function() {
     console.log(this.value);
     seletCity = this.value;
     console.log(seletCity);
+    Cookies.set('city', seletCity);
     let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
     todayWeather(todayApiPath);
     apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
@@ -28,8 +29,8 @@ document.getElementById('city-name').addEventListener('change', function() {
 });
 console.log(seletCity);
 
-let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-todayWeather(todayApiPath);
+let day1AllyApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+todayWeather(day1AllyApiPath);
 let apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
 FiveDayWeather(apiPath);
 
@@ -319,8 +320,9 @@ function DayChange(dayAll) {
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {
-    day1AllApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-    todayWeather(todayApiPath);
+    console.log(seletCity);
+    day1AllyApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+    todayWeather(day1AllyApiPath);
     document.getElementById('detail').style.transform = "translateY(100%)";
     document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
     document.getElementById('current-info').style.transform = "translateY(60%)";
@@ -328,10 +330,6 @@ document.getElementById('current-info').addEventListener('click', () => {
     document.getElementById('addNew').style.transform = "translateY(-100%)";
     inputDisplay = false;;
 });
-// document.getElementById('option').addEventListener('click', () => {
-//     document.getElementById('addNew').style.transform = "translateY(-100%)";
-//     inputDisplay = false;
-// });
 
 
 
