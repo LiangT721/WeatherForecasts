@@ -324,7 +324,7 @@ document.getElementById('current-info').addEventListener('click', () => {
     document.getElementById('detail').style.transform = "translateY(100%)";
     document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
     document.getElementById('current-info').style.transform = "translateY(60%)";
-    document.getElementById('option').style.transform = "translateY(200%)";
+    document.getElementById('option').style.transform = "translateY(240%)";
 });
 
 

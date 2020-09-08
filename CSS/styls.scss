@@ -24,23 +24,29 @@ span {
     justify-items: center;
     #addNew {
         z-index: 99;
-        width: 50%;
+        width: 70%;
         display: grid;
         align-items: center;
         justify-items: center;
         grid-template-columns: auto auto auto;
+        border-radius: 0 0 10px 10px;
         column-gap: 1vw;
         position: absolute;
-        padding: 2vh 2vh;
+        padding: 3vh 2vh;
         background-color: rgba($color: #000000, $alpha: 0.7);
         top: 0;
         transform: translateY(-100%);
         transition: all 0.5s ease-in-out;
         #Input {
+            font-size: 1.2rem;
             width: 25vw;
             justify-self: right;
         }
+        #save {
+            font-size: 1.2rem;
+        }
         #add {
+            font-size: 1.2rem;
             justify-self: left;
         }
     }
@@ -51,7 +57,7 @@ span {
         justify-items: center;
         grid-template-columns: auto auto;
         column-gap: 1vw;
-        transform: translateY(200%);
+        transform: translateY(240%);
         transition: all 1s ease-in-out;
         #city-name {
             width: 30vw;
