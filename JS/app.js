@@ -111,10 +111,10 @@ function todayWeather(currentpath) {
                 wind: infoToday.wind.speed,
                 pressure: infoToday.main.pressure,
                 humidity: infoToday.main.humidity,
-                preceitation: infoToday.clouds.all,
+                visibility: infoToday.visibility / 1000,
             }
             WeatherBGImg(day1All.main)
-            console.log(day1All.name)
+            console.log(day1All.visibility)
             document.getElementById('city').innerHTML = day1All.name;
             document.getElementById('day').innerHTML = checkDays(day1All);
             document.getElementById('date').innerHTML = day1All.date;
@@ -153,7 +153,7 @@ function FiveDayWeather(path) {
                 wind: info.list[5].wind.speed,
                 pressure: info.list[5].main.pressure,
                 humidity: info.list[5].main.humidity,
-                preceitation: info.list[5].clouds.all,
+                visibility: info.list[5].visibility / 1000,
             }
             day3All = {
                 name: info.city.name,
@@ -166,7 +166,7 @@ function FiveDayWeather(path) {
                 wind: info.list[13].wind.speed,
                 pressure: info.list[13].main.pressure,
                 humidity: info.list[13].main.humidity,
-                preceitation: info.list[13].clouds.all,
+                visibility: info.list[13].visibility / 1000,
             }
             day4All = {
                 name: info.city.name,
@@ -179,7 +179,7 @@ function FiveDayWeather(path) {
                 wind: info.list[21].wind.speed,
                 pressure: info.list[21].main.pressure,
                 humidity: info.list[21].main.humidity,
-                preceitation: info.list[21].clouds.all,
+                visibility: info.list[21].visibility / 1000,
             }
             day5All = {
                 name: info.city.name,
@@ -192,7 +192,7 @@ function FiveDayWeather(path) {
                 wind: info.list[29].wind.speed,
                 pressure: info.list[29].main.pressure,
                 humidity: info.list[29].main.humidity,
-                preceitation: info.list[29].clouds.all,
+                visibility: info.list[29].visibility / 1000,
             }
 
             /*current weather information display */
@@ -219,43 +219,27 @@ function FiveDayWeather(path) {
     ajax.open("GET", path, true);
     ajax.send();
 }
+/* the function to output the detail information of weather */
+function DayChange(dayAll) {
+    WeatherBGImg(dayAll.main)
+    document.getElementById('city').innerHTML = dayAll.name;
+    document.getElementById('day').innerHTML = checkDays(dayAll);
+    document.getElementById('date').innerHTML = dayAll.date;
+    document.getElementById('main').innerHTML = dayAll.main;
+    document.getElementById('temp-num').innerHTML = dayAll.temp;
+    document.getElementById('feels-like').innerHTML = dayAll.feelsLike;
+    document.getElementById("Max-temp").innerHTML = dayAll.tempMax;
+    document.getElementById("Min-temp").innerHTML = dayAll.tempMin;
+    document.getElementById("Wind").innerHTML = dayAll.wind;
+    document.getElementById("Pressure").innerHTML = dayAll.pressure;
+    document.getElementById("Humidity").innerHTML = dayAll.humidity;
+    document.getElementById("Visibility").innerHTML = dayAll.visibility;
+    document.getElementById('detail').style.transform = "translateY(0)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
+    document.getElementById('current-info').style.transform = "translateY(0)";
+    document.getElementById('option').style.transform = "translateY(0)";
 
-/* get the input city value */
-function getName() {
-    newCityName = document.getElementById("Input").value;
-    console.log(newCityName);
-    seletCity = newCityName;
-    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-    todayWeather(todayApiPath);
-    apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-    FiveDayWeather(apiPath);
-    Cookies.set('city', seletCity);
 }
-
-/* add the input city to option */
-function addCity() {
-    let newCityOption = document.createElement('option');
-    let cityList = document.getElementById('city-name');
-    cityList.appendChild(newCityOption);
-    newCityOption.innerHTML = seletCity;
-    newCityOption.value = seletCity;
-    document.getElementById("addNew").style.transform = "translateY(-100%)";
-    inputDisplay = false;
-}
-
-
-/*show/hide city-adding windows */
-function addShow() {
-    if (inputDisplay === false) {
-        document.getElementById("addNew").style.transform = "translateY(0)";
-        inputDisplay = true;
-    } else if (inputDisplay === true) {
-        document.getElementById("addNew").style.transform = "translateY(-100%)";
-        inputDisplay = false;
-    }
-    console.log(document.getElementById("addNew").style);
-}
-
 
 /*check and change the icon and background of weather */
 function WeatherImg(weather) {
@@ -286,28 +270,39 @@ function WeatherBGImg(weather) {
     }
 }
 
+/* get the input city value */
+function getName() {
+    newCityName = document.getElementById("Input").value;
+    console.log(newCityName);
+    seletCity = newCityName;
+    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+    todayWeather(todayApiPath);
+    apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
+    FiveDayWeather(apiPath);
+    Cookies.set('city', seletCity);
+}
 
+/* add the input city to option */
+function addCity() {
+    let newCityOption = document.createElement('option');
+    let cityList = document.getElementById('city-name');
+    cityList.appendChild(newCityOption);
+    newCityOption.innerHTML = seletCity;
+    newCityOption.value = seletCity;
+    document.getElementById("addNew").style.transform = "translateY(-100%)";
+    inputDisplay = false;
+}
 
-/* the function to output the detail information of weather */
-function DayChange(dayAll) {
-    WeatherBGImg(dayAll.main)
-    document.getElementById('city').innerHTML = dayAll.name;
-    document.getElementById('day').innerHTML = checkDays(dayAll);
-    document.getElementById('date').innerHTML = dayAll.date;
-    document.getElementById('main').innerHTML = dayAll.main;
-    document.getElementById('temp-num').innerHTML = dayAll.temp;
-    document.getElementById('feels-like').innerHTML = dayAll.feelsLike;
-    document.getElementById("Max-temp").innerHTML = dayAll.tempMax;
-    document.getElementById("Min-temp").innerHTML = dayAll.tempMin;
-    document.getElementById("Wind").innerHTML = dayAll.wind;
-    document.getElementById("Pressure").innerHTML = dayAll.pressure;
-    document.getElementById("Humidity").innerHTML = dayAll.humidity;
-    document.getElementById("Precipitation").innerHTML = dayAll.preceitation;
-    document.getElementById('detail').style.transform = "translateY(0)";
-    document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
-    document.getElementById('current-info').style.transform = "translateY(0)";
-    document.getElementById('option').style.transform = "translateY(0)";
-
+/*show/hide city-adding windows */
+function addShow() {
+    if (inputDisplay === false) {
+        document.getElementById("addNew").style.transform = "translateY(0)";
+        inputDisplay = true;
+    } else if (inputDisplay === true) {
+        document.getElementById("addNew").style.transform = "translateY(-100%)";
+        inputDisplay = false;
+    }
+    console.log(document.getElementById("addNew").style);
 }
 
 /* make the current weather full screen */
