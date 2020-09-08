@@ -75,6 +75,10 @@ function todayWeather(currentpath) {
             document.getElementById('main').innerHTML = today.main;
             document.getElementById('temp-num').innerHTML = today.temp;
             document.getElementById('feels-like').innerHTML = today.feelsLike;
+        } else if (this.readyState != 4) {
+            document.getElementById('city').innerHTML = "loading..."
+        } else {
+            document.getElementById('city').innerHTML = "No Result!"
         }
     }
     ajax.open("GET", currentpath, true);

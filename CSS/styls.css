@@ -11,6 +11,7 @@ body {
 p,
 span {
   text-transform: capitalize;
+  text-align: center;
 }
 
 #background {
@@ -79,7 +80,7 @@ span {
 }
 
 #background #option #city-name {
-  width: 25vw;
+  width: 30vw;
   font-size: 1.2rem;
   text-transform: capitalize;
 }
