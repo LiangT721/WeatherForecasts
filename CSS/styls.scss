@@ -38,15 +38,10 @@ span {
         transform: translateY(-100%);
         transition: all 0.5s ease-in-out;
         #Input {
-            font-size: 1.2rem;
             width: 25vw;
             justify-self: right;
         }
-        #save {
-            font-size: 1.2rem;
-        }
         #add {
-            font-size: 1.2rem;
             justify-self: left;
         }
     }

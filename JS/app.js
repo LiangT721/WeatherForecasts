@@ -326,6 +326,8 @@ document.getElementById('current-info').addEventListener('click', () => {
     document.getElementById('current-info').style.transform = "translateY(60%)";
     document.getElementById('option').style.transform = "translateY(240%)";
 });
+document.getElementById('addNew').addEventListener('click', () => { document.getElementById('addNew').style.transform = "translateY(-100%)";
+    inputDisplay = false; });
 
 
 

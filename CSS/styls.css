@@ -52,18 +52,12 @@ span {
 }
 
 #background #addNew #Input {
-  font-size: 1.2rem;
   width: 25vw;
   -ms-grid-column-align: right;
       justify-self: right;
 }
 
-#background #addNew #save {
-  font-size: 1.2rem;
-}
-
 #background #addNew #add {
-  font-size: 1.2rem;
   -ms-grid-column-align: left;
       justify-self: left;
 }
