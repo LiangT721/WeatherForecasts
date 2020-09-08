@@ -264,25 +264,25 @@ function GetDay(Day) {
     var w;
     switch (week) {
         case 7:
-            w = 'Sunday';
+            w = 'SUN';
             break;
         case 1:
-            w = 'Monday';
+            w = 'MON';
             break;
         case 2:
-            w = 'Tuesday';
+            w = 'TUES';
             break;
         case 3:
-            w = 'Wednesday';
+            w = 'WED';
             break;
         case 4:
-            w = 'Thursday';
+            w = 'THUR';
             break;
         case 5:
-            w = 'Friday';
+            w = 'FRI';
             break;
         case 6:
-            w = 'Saturday';
+            w = 'SAT';
             break;
     }
     return w;
@@ -303,7 +303,7 @@ function DayChange(dayAll) {
     document.getElementById("Wind").innerHTML = dayAll.wind;
     document.getElementById("Pressure").innerHTML = dayAll.pressure;
     document.getElementById("Humidity").innerHTML = dayAll.humidity;
-    document.getElementById("Precitation").innerHTML = dayAll.preceitation;
+    document.getElementById("Precipitation").innerHTML = dayAll.preceitation;
     document.getElementById('detail').style.transform = "translateY(0)";
     document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
     document.getElementById('current-info').style.transform = "translateY(0)";
