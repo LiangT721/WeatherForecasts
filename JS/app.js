@@ -242,7 +242,7 @@ function WeatherImg(weather) {
     } else if (weather.toUpperCase() === "CLOUDS") {
         return "../images/Clouds.png"
     } else if (weather.toUpperCase() === "CLEAR") {
-        return "../images/Sun.png"
+        return "../images/Clear.png"
     } else if (weather.toUpperCase() === "SNOW") {
         return "../images/Snow.png"
     }
