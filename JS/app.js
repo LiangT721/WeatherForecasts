@@ -9,17 +9,17 @@ let day3All;
 let day4All;
 let day5All;
 let today;
-console.log(seletCity);
+/*check cookies */
 if (seletCity === undefined) {
     seletCity = "calgary";
 } else {
     addCity(seletCity);
     document.getElementById('city-name').value = seletCity;
 };
+
+/*check the option selected */
 document.getElementById('city-name').addEventListener('change', function() {
-    console.log(this.value);
     seletCity = this.value;
-    console.log(seletCity);
     Cookies.set('city', seletCity);
     let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
     todayWeather(todayApiPath);
@@ -27,14 +27,14 @@ document.getElementById('city-name').addEventListener('change', function() {
     console.log(apiPath);
     FiveDayWeather(apiPath);
 });
-console.log(seletCity);
 
+/* Two Api path */
 let day1AllyApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
 todayWeather(day1AllyApiPath);
 let apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
 FiveDayWeather(apiPath);
 
-/* get date */
+/* get today date */
 let date = new Date();
 let nowMonth = date.getMonth() + 1;
 let strDate = date.getDate();
@@ -46,8 +46,53 @@ if (strDate >= 0 && strDate <= 9) {
     strDate = "0" + strDate;
 }
 let todayDate = date.getFullYear() + seperator + nowMonth + seperator + strDate;
-// console.log(nowDate)
 
+
+/* check the display of "today/tomorrow" */
+function checkDays(day) {
+    console.log(day);
+    if (day === day1All) {
+        return "Today";
+    } else if (day === day2All) {
+        return "tomorrow";
+    } else {
+        return GetDay(day.date);
+    }
+}
+
+/*output the day of week */
+function GetDay(Day) {
+    var date = new Date(Day);
+    var week = date.getDay() + 1;
+    console.log(week);
+    var w;
+    switch (week) {
+        case 7:
+            w = 'SUN';
+            break;
+        case 1:
+            w = 'MON';
+            break;
+        case 2:
+            w = 'TUES';
+            break;
+        case 3:
+            w = 'WED';
+            break;
+        case 4:
+            w = 'THUR';
+            break;
+        case 5:
+            w = 'FRI';
+            break;
+        case 6:
+            w = 'SAT';
+            break;
+    }
+    return w;
+}
+
+/*current weather check */
 function todayWeather(currentpath) {
     let ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function() {
@@ -96,19 +141,7 @@ function FiveDayWeather(path) {
 
 
             /* get the weather information of five days */
-            // day1All = {
-            //     name: info.city.name,
-            //     date: info.list[0].dt_txt.slice(0, 10),
-            //     main: info.list[0].weather[0].main,
-            //     temp: Math.round((info.list[0].main.temp - 273.15) * 10) / 10,
-            //     feelsLike: Math.round((info.list[0].main.feels_like - 273.15) * 10) / 10,
-            //     tempMax: Math.round((info.list[0].main.temp_max - 273.15) * 10) / 10,
-            //     tempMin: Math.round((info.list[0].main.temp_min - 273.15) * 10) / 10,
-            //     wind: info.list[0].wind.speed,
-            //     pressure: info.list[0].main.pressure,
-            //     humidity: info.list[0].main.humidity,
-            //     preceitation: info.list[0].clouds.all,
-            // }
+
             day2All = {
                 name: info.city.name,
                 date: info.list[5].dt_txt.slice(0, 10),
@@ -187,7 +220,6 @@ function FiveDayWeather(path) {
     ajax.send();
 }
 
-
 /* get the input city value */
 function getName() {
     newCityName = document.getElementById("Input").value;
@@ -198,17 +230,6 @@ function getName() {
     apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
     FiveDayWeather(apiPath);
     Cookies.set('city', seletCity);
-}
-
-function checkDays(day) {
-    console.log(day);
-    if (day === today) {
-        return "Today";
-    } else if (day === day2All) {
-        return "tomorrow";
-    } else {
-        return GetDay(day.date);
-    }
 }
 
 /* add the input city to option */
@@ -236,7 +257,7 @@ function addShow() {
 }
 
 
-/*check and change the icon of weather */
+/*check and change the icon and background of weather */
 function WeatherImg(weather) {
     console.log(day1All.main);
     if (weather.toUpperCase() === "RAIN") {
@@ -247,6 +268,8 @@ function WeatherImg(weather) {
         return "../images/Clear.png"
     } else if (weather.toUpperCase() === "SNOW") {
         return "../images/Snow.png"
+    } else {
+        return "../images/Sun.png"
     }
 }
 
@@ -263,42 +286,11 @@ function WeatherBGImg(weather) {
     }
 }
 
-/*output the day of week */
-function GetDay(Day) {
-    var date = new Date(Day);
-    var week = date.getDay() + 1;
-    console.log(week);
-    var w;
-    switch (week) {
-        case 7:
-            w = 'SUN';
-            break;
-        case 1:
-            w = 'MON';
-            break;
-        case 2:
-            w = 'TUES';
-            break;
-        case 3:
-            w = 'WED';
-            break;
-        case 4:
-            w = 'THUR';
-            break;
-        case 5:
-            w = 'FRI';
-            break;
-        case 6:
-            w = 'SAT';
-            break;
-    }
-    return w;
-}
 
-/* output the detail information of weather */
+
+/* the function to output the detail information of weather */
 function DayChange(dayAll) {
     WeatherBGImg(dayAll.main)
-    console.log(day1All.name)
     document.getElementById('city').innerHTML = dayAll.name;
     document.getElementById('day').innerHTML = checkDays(dayAll);
     document.getElementById('date').innerHTML = dayAll.date;
