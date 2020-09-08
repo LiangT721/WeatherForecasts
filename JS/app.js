@@ -54,7 +54,7 @@ function todayWeather(currentpath) {
             // console.log(this.responseText);
             infoToday = JSON.parse(this.responseText);
             console.log(infoToday);
-            today = {
+            day1All = {
                 name: infoToday.name,
                 date: todayDate,
                 main: infoToday.weather[0].main,
@@ -67,14 +67,14 @@ function todayWeather(currentpath) {
                 humidity: infoToday.main.humidity,
                 preceitation: infoToday.clouds.all,
             }
-            WeatherBGImg(today.main)
-            console.log(today.name)
-            document.getElementById('city').innerHTML = today.name;
-            document.getElementById('day').innerHTML = checkDays(today);
-            document.getElementById('date').innerHTML = today.date;
-            document.getElementById('main').innerHTML = today.main;
-            document.getElementById('temp-num').innerHTML = today.temp;
-            document.getElementById('feels-like').innerHTML = today.feelsLike;
+            WeatherBGImg(day1All.main)
+            console.log(day1All.name)
+            document.getElementById('city').innerHTML = day1All.name;
+            document.getElementById('day').innerHTML = checkDays(day1All);
+            document.getElementById('date').innerHTML = day1All.date;
+            document.getElementById('main').innerHTML = day1All.main;
+            document.getElementById('temp-num').innerHTML = day1All.temp;
+            document.getElementById('feels-like').innerHTML = day1All.feelsLike;
         } else if (this.readyState != 4) {
             document.getElementById('city').innerHTML = "loading..."
         } else {
@@ -95,19 +95,19 @@ function FiveDayWeather(path) {
 
 
             /* get the weather information of five days */
-            day1All = {
-                name: info.city.name,
-                date: info.list[0].dt_txt.slice(0, 10),
-                main: info.list[0].weather[0].main,
-                temp: Math.round((info.list[0].main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((info.list[0].main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((info.list[0].main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((info.list[0].main.temp_min - 273.15) * 10) / 10,
-                wind: info.list[0].wind.speed,
-                pressure: info.list[0].main.pressure,
-                humidity: info.list[0].main.humidity,
-                preceitation: info.list[0].clouds.all,
-            }
+            // day1All = {
+            //     name: info.city.name,
+            //     date: info.list[0].dt_txt.slice(0, 10),
+            //     main: info.list[0].weather[0].main,
+            //     temp: Math.round((info.list[0].main.temp - 273.15) * 10) / 10,
+            //     feelsLike: Math.round((info.list[0].main.feels_like - 273.15) * 10) / 10,
+            //     tempMax: Math.round((info.list[0].main.temp_max - 273.15) * 10) / 10,
+            //     tempMin: Math.round((info.list[0].main.temp_min - 273.15) * 10) / 10,
+            //     wind: info.list[0].wind.speed,
+            //     pressure: info.list[0].main.pressure,
+            //     humidity: info.list[0].main.humidity,
+            //     preceitation: info.list[0].clouds.all,
+            // }
             day2All = {
                 name: info.city.name,
                 date: info.list[5].dt_txt.slice(0, 10),
@@ -295,7 +295,7 @@ function GetDay(Day) {
 /* output the detail information of weather */
 function DayChange(dayAll) {
     WeatherBGImg(dayAll.main)
-    console.log(today.name)
+    console.log(day1All.name)
     document.getElementById('city').innerHTML = dayAll.name;
     document.getElementById('day').innerHTML = checkDays(dayAll);
     document.getElementById('date').innerHTML = dayAll.date;
@@ -317,7 +317,7 @@ function DayChange(dayAll) {
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {
-    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+    day1AllApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
     todayWeather(todayApiPath);
     document.getElementById('detail').style.transform = "translateY(100%)";
     document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
