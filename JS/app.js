@@ -238,7 +238,6 @@ function DayChange(dayAll) {
     document.getElementById('five-day-forecasts').style.transform = "translateY(0)";
     document.getElementById('current-info').style.transform = "translateY(0)";
     document.getElementById('option').style.transform = "translateY(0)";
-
 }
 
 /*check and change the icon and background of weather */
