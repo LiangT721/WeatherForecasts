@@ -9,11 +9,12 @@ let day3All;
 let day4All;
 let day5All;
 let today;
-
+console.log(seletCity);
 if (seletCity === undefined) {
     seletCity = "calgary";
 } else {
     addCity(seletCity);
+    document.getElementById('city-name').value = seletCity;
 };
 document.getElementById('city-name').addEventListener('change', function() {
     console.log(this.value);
@@ -210,8 +211,8 @@ function addCity() {
     let newCityOption = document.createElement('option');
     let cityList = document.getElementById('city-name');
     cityList.appendChild(newCityOption);
-    newCityOption.innerHTML = newCityName;
-    newCityOption.value = newCityName;
+    newCityOption.innerHTML = seletCity;
+    newCityOption.value = seletCity;
     document.getElementById("addNew").style.transform = "translateY(-100%)";
     inputDisplay = false;
 }
@@ -289,6 +290,14 @@ function GetDay(Day) {
 
 /* output the detail information of weather */
 function DayChange(dayAll) {
+    WeatherBGImg(dayAll.main)
+    console.log(today.name)
+    document.getElementById('city').innerHTML = dayAll.name;
+    document.getElementById('day').innerHTML = checkDays(dayAll);
+    document.getElementById('date').innerHTML = dayAll.date;
+    document.getElementById('main').innerHTML = dayAll.main;
+    document.getElementById('temp-num').innerHTML = dayAll.temp;
+    document.getElementById('feels-like').innerHTML = dayAll.feelsLike;
     document.getElementById("Max-temp").innerHTML = dayAll.tempMax;
     document.getElementById("Min-temp").innerHTML = dayAll.tempMin;
     document.getElementById("Wind").innerHTML = dayAll.wind;
