@@ -237,6 +237,7 @@ function addShow() {
 
 /*check and change the icon of weather */
 function WeatherImg(weather) {
+    console.log(day1All.main);
     if (weather.toUpperCase() === "RAIN") {
         return "../images/Rain.png"
     } else if (weather.toUpperCase() === "CLOUDS") {
@@ -249,6 +250,7 @@ function WeatherImg(weather) {
 }
 
 function WeatherBGImg(weather) {
+
     if (weather.toUpperCase() === "RAIN") {
         document.getElementById('Body').style.backgroundImage = 'url(../images/BgRain.jpg)';
     } else if (weather.toUpperCase() === "CLOUDS") {
