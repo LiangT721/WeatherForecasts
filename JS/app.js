@@ -239,7 +239,7 @@ function addShow() {
 function WeatherImg(weather) {
     console.log(day1All.main);
     if (weather.toUpperCase() === "RAIN") {
-        return "../images/Rain.png"
+        return "../images/rain.png"
     } else if (weather.toUpperCase() === "CLOUDS") {
         return "../images/Clouds.png"
     } else if (weather.toUpperCase() === "CLEAR") {
