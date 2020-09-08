@@ -313,6 +313,8 @@ function DayChange(dayAll) {
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {
+    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+    todayWeather(todayApiPath);
     document.getElementById('detail').style.transform = "translateY(100%)";
     document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
     document.getElementById('current-info').style.transform = "translateY(60%)";
