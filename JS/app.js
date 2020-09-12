@@ -9,6 +9,50 @@ let day3All;
 let day4All;
 let day5All;
 let today;
+/* Basic Api Class set */
+class Api {
+    content;
+    ajax;
+    type;
+    location;
+    successFunction;
+    loadingFunction;
+    failureFunction;
+    constructor(httpType, url, success, loading, failure) {
+        this.ajax = new XMLHttpRequest();
+        this.type = httpType;
+        this.location = url;
+        this.successFunction = success;
+        this.loadingFunction = loading;
+        this.failureFunction = failure;
+    }
+
+    get() {
+        let holder = this;
+        this.ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                holder.successFunction();
+            } else if (this.readyState != 4) {
+                holder.loadingFunction();
+            } else {
+                holder.failureFunction();
+            }
+        }
+        this.ajax.open(this.type, this.location, true);
+        this.ajax.send();
+    }
+}
+
+function onLoading() {
+    document.getElementById('city').innerHTML = "loading..."
+}
+
+function onFailure() {
+    document.getElementById('city').innerHTML = "No Result!"
+}
+
+
+
 /*check cookies */
 if (seletCity === undefined) {
     seletCity = "calgary";
@@ -21,18 +65,12 @@ if (seletCity === undefined) {
 document.getElementById('city-name').addEventListener('change', function() {
     seletCity = this.value;
     Cookies.set('city', seletCity);
-    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-    todayWeather(todayApiPath);
-    apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-    console.log(apiPath);
-    FiveDayWeather(apiPath);
+    FiveDayWeather();
+    todayWeather();
 });
-
-/* Two Api path */
-let day1AllyApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-todayWeather(day1AllyApiPath);
-let apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-FiveDayWeather(apiPath);
+console.log(seletCity);
+FiveDayWeather();
+todayWeather();
 
 /* get today date */
 let date = new Date();
@@ -50,7 +88,6 @@ let todayDate = date.getFullYear() + seperator + nowMonth + seperator + strDate;
 
 /* check the display of "today/tomorrow" */
 function checkDays(day) {
-    console.log(day);
     if (day === day1All) {
         return "Today";
     } else if (day === day2All) {
@@ -64,7 +101,6 @@ function checkDays(day) {
 function GetDay(Day) {
     var date = new Date(Day);
     var week = date.getDay() + 1;
-    console.log(week);
     var w;
     switch (week) {
         case 7:
@@ -91,134 +127,124 @@ function GetDay(Day) {
     }
     return w;
 }
-
-/*current weather check */
-function todayWeather(currentpath) {
-    let ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.responseText);
-            infoToday = JSON.parse(this.responseText);
-            console.log(infoToday);
-            day1All = {
-                name: infoToday.name,
-                date: todayDate,
-                main: infoToday.weather[0].main,
-                temp: Math.round((infoToday.main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((infoToday.main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((infoToday.main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((infoToday.main.temp_min - 273.15) * 10) / 10,
-                wind: infoToday.wind.speed,
-                pressure: infoToday.main.pressure,
-                humidity: infoToday.main.humidity,
-                visibility: infoToday.visibility / 1000,
-            }
-            WeatherBGImg(day1All.main)
-            console.log(day1All.visibility)
-            document.getElementById('city').innerHTML = day1All.name;
-            document.getElementById('day').innerHTML = checkDays(day1All);
-            document.getElementById('date').innerHTML = day1All.date;
-            document.getElementById('main').innerHTML = day1All.main;
-            document.getElementById('temp-num').innerHTML = day1All.temp;
-            document.getElementById('feels-like').innerHTML = day1All.feelsLike;
-        } else if (this.readyState != 4) {
-            document.getElementById('city').innerHTML = "loading..."
-        } else {
-            document.getElementById('city').innerHTML = "No Result!"
+/* get today weather data */
+function todayWeather() {
+    function onSuccess() {
+        infoToday = JSON.parse(this.ajax.responseText);
+        day1All = {
+            name: infoToday.name,
+            date: todayDate,
+            main: infoToday.weather[0].main,
+            temp: Math.round((infoToday.main.temp - 273.15) * 10) / 10,
+            feelsLike: Math.round((infoToday.main.feels_like - 273.15) * 10) / 10,
+            tempMax: Math.round((infoToday.main.temp_max - 273.15) * 10) / 10,
+            tempMin: Math.round((infoToday.main.temp_min - 273.15) * 10) / 10,
+            wind: infoToday.wind.speed,
+            pressure: infoToday.main.pressure,
+            humidity: infoToday.main.humidity,
+            visibility: infoToday.visibility / 1000,
         }
+        WeatherBGImg(day1All.main)
+        document.getElementById('city').innerHTML = day1All.name;
+        document.getElementById('day').innerHTML = checkDays(day1All);
+        document.getElementById('date').innerHTML = day1All.date;
+        document.getElementById('main').innerHTML = day1All.main;
+        document.getElementById('temp-num').innerHTML = day1All.temp;
+        document.getElementById('feels-like').innerHTML = day1All.feelsLike;
     }
-    ajax.open("GET", currentpath, true);
-    ajax.send();
+    let day1AllApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5";
+    console.log(day1AllApiPath);
+    let OneDayWeather = new Api("GET", day1AllApiPath, onSuccess, onLoading, onFailure);
+    OneDayWeather.get();
+    console.log(document.getElementById('city'));
 }
+
 /*five day weather check*/
-function FiveDayWeather(path) {
-    let ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.responseText);
-            info = JSON.parse(this.responseText);
-            console.log(info);
+function FiveDayWeather() {
 
-
-            /* get the weather information of five days */
-
-            day2All = {
-                name: info.city.name,
-                date: info.list[5].dt_txt.slice(0, 10),
-                main: info.list[5].weather[0].main,
-                temp: Math.round((info.list[5].main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((info.list[5].main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((info.list[5].main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((info.list[5].main.temp_min - 273.15) * 10) / 10,
-                wind: info.list[5].wind.speed,
-                pressure: info.list[5].main.pressure,
-                humidity: info.list[5].main.humidity,
-                visibility: info.list[5].visibility / 1000,
-            }
-            day3All = {
-                name: info.city.name,
-                date: info.list[13].dt_txt.slice(0, 10),
-                main: info.list[13].weather[0].main,
-                temp: Math.round((info.list[13].main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((info.list[13].main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((info.list[13].main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((info.list[13].main.temp_min - 273.15) * 10) / 10,
-                wind: info.list[13].wind.speed,
-                pressure: info.list[13].main.pressure,
-                humidity: info.list[13].main.humidity,
-                visibility: info.list[13].visibility / 1000,
-            }
-            day4All = {
-                name: info.city.name,
-                date: info.list[21].dt_txt.slice(0, 10),
-                main: info.list[21].weather[0].main,
-                temp: Math.round((info.list[21].main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((info.list[21].main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((info.list[21].main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((info.list[21].main.temp_min - 273.15) * 10) / 10,
-                wind: info.list[21].wind.speed,
-                pressure: info.list[21].main.pressure,
-                humidity: info.list[21].main.humidity,
-                visibility: info.list[21].visibility / 1000,
-            }
-            day5All = {
-                name: info.city.name,
-                date: info.list[29].dt_txt.slice(0, 10),
-                main: info.list[29].weather[0].main,
-                temp: Math.round((info.list[29].main.temp - 273.15) * 10) / 10,
-                feelsLike: Math.round((info.list[29].main.feels_like - 273.15) * 10) / 10,
-                tempMax: Math.round((info.list[29].main.temp_max - 273.15) * 10) / 10,
-                tempMin: Math.round((info.list[29].main.temp_min - 273.15) * 10) / 10,
-                wind: info.list[29].wind.speed,
-                pressure: info.list[29].main.pressure,
-                humidity: info.list[29].main.humidity,
-                visibility: info.list[29].visibility / 1000,
-            }
-
-            /*current weather information display */
-            // WeatherBGImg(day1All.main)
-
-
-            document.getElementById("day1").innerHTML = GetDay(day1All.date);
-            document.getElementById("day2").innerHTML = GetDay(day2All.date);
-            document.getElementById("day3").innerHTML = GetDay(day3All.date);
-            document.getElementById("day4").innerHTML = GetDay(day4All.date);
-            document.getElementById("day5").innerHTML = GetDay(day5All.date);
-            document.getElementById("dayOneImg").src = WeatherImg(day1All.main);
-            document.getElementById("dayTwoImg").src = WeatherImg(day2All.main);
-            document.getElementById("dayThreeImg").src = WeatherImg(day3All.main);
-            document.getElementById("dayFourImg").src = WeatherImg(day4All.main);
-            document.getElementById("dayFiveImg").src = WeatherImg(day5All.main);
-            document.getElementById("dayOneTemp").innerHTML = day1All.temp;
-            document.getElementById("dayTwoTemp").innerHTML = day2All.temp;
-            document.getElementById("dayThreeTemp").innerHTML = day3All.temp;
-            document.getElementById("dayFourTemp").innerHTML = day4All.temp;
-            document.getElementById("dayFiveTemp").innerHTML = day5All.temp;
+    function onSuccess() {
+        info = JSON.parse(this.ajax.responseText);
+        /* get the weather information of five days */
+        day2All = {
+            name: info.city.name,
+            date: info.list[5].dt_txt.slice(0, 10),
+            main: info.list[5].weather[0].main,
+            temp: Math.round((info.list[5].main.temp - 273.15) * 10) / 10,
+            feelsLike: Math.round((info.list[5].main.feels_like - 273.15) * 10) / 10,
+            tempMax: Math.round((info.list[5].main.temp_max - 273.15) * 10) / 10,
+            tempMin: Math.round((info.list[5].main.temp_min - 273.15) * 10) / 10,
+            wind: info.list[5].wind.speed,
+            pressure: info.list[5].main.pressure,
+            humidity: info.list[5].main.humidity,
+            visibility: info.list[5].visibility / 1000,
         }
+        day3All = {
+            name: info.city.name,
+            date: info.list[13].dt_txt.slice(0, 10),
+            main: info.list[13].weather[0].main,
+            temp: Math.round((info.list[13].main.temp - 273.15) * 10) / 10,
+            feelsLike: Math.round((info.list[13].main.feels_like - 273.15) * 10) / 10,
+            tempMax: Math.round((info.list[13].main.temp_max - 273.15) * 10) / 10,
+            tempMin: Math.round((info.list[13].main.temp_min - 273.15) * 10) / 10,
+            wind: info.list[13].wind.speed,
+            pressure: info.list[13].main.pressure,
+            humidity: info.list[13].main.humidity,
+            visibility: info.list[13].visibility / 1000,
+        }
+        day4All = {
+            name: info.city.name,
+            date: info.list[21].dt_txt.slice(0, 10),
+            main: info.list[21].weather[0].main,
+            temp: Math.round((info.list[21].main.temp - 273.15) * 10) / 10,
+            feelsLike: Math.round((info.list[21].main.feels_like - 273.15) * 10) / 10,
+            tempMax: Math.round((info.list[21].main.temp_max - 273.15) * 10) / 10,
+            tempMin: Math.round((info.list[21].main.temp_min - 273.15) * 10) / 10,
+            wind: info.list[21].wind.speed,
+            pressure: info.list[21].main.pressure,
+            humidity: info.list[21].main.humidity,
+            visibility: info.list[21].visibility / 1000,
+        }
+        day5All = {
+            name: info.city.name,
+            date: info.list[29].dt_txt.slice(0, 10),
+            main: info.list[29].weather[0].main,
+            temp: Math.round((info.list[29].main.temp - 273.15) * 10) / 10,
+            feelsLike: Math.round((info.list[29].main.feels_like - 273.15) * 10) / 10,
+            tempMax: Math.round((info.list[29].main.temp_max - 273.15) * 10) / 10,
+            tempMin: Math.round((info.list[29].main.temp_min - 273.15) * 10) / 10,
+            wind: info.list[29].wind.speed,
+            pressure: info.list[29].main.pressure,
+            humidity: info.list[29].main.humidity,
+            visibility: info.list[29].visibility / 1000,
+        }
+
+        /*current weather information display */
+        document.getElementById('Body').style.backgroundImage = "url(" + WeatherBGImg(day1All.main) + ")";
+
+        document.getElementById("day1").innerHTML = GetDay(day1All.date);
+        document.getElementById("day2").innerHTML = GetDay(day2All.date);
+        document.getElementById("day3").innerHTML = GetDay(day3All.date);
+        document.getElementById("day4").innerHTML = GetDay(day4All.date);
+        document.getElementById("day5").innerHTML = GetDay(day5All.date);
+        document.getElementById("dayOneImg").src = WeatherImg(day1All.main);
+        document.getElementById("dayTwoImg").src = WeatherImg(day2All.main);
+        document.getElementById("dayThreeImg").src = WeatherImg(day3All.main);
+        document.getElementById("dayFourImg").src = WeatherImg(day4All.main);
+        document.getElementById("dayFiveImg").src = WeatherImg(day5All.main);
+        document.getElementById("dayOneTemp").innerHTML = day1All.temp;
+        document.getElementById("dayTwoTemp").innerHTML = day2All.temp;
+        document.getElementById("dayThreeTemp").innerHTML = day3All.temp;
+        document.getElementById("dayFourTemp").innerHTML = day4All.temp;
+        document.getElementById("dayFiveTemp").innerHTML = day5All.temp;
+        document.getElementById('city').innerHTML = day1All.name;
     }
-    ajax.open("GET", path, true);
-    ajax.send();
+    let fiveDayApiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
+    console.log(seletCity);
+    let fiveDayWeather = new Api("GET", fiveDayApiPath, onSuccess, onLoading, onFailure);
+    fiveDayWeather.get();
+
 }
+
 /* the function to output the detail information of weather */
 function DayChange(dayAll) {
     WeatherBGImg(dayAll.main)
@@ -242,7 +268,6 @@ function DayChange(dayAll) {
 
 /*check and change the icon and background of weather */
 function WeatherImg(weather) {
-    console.log(day1All.main);
     if (weather.toUpperCase() === "RAIN") {
         return "../images/rain.png"
     } else if (weather.toUpperCase() === "CLOUDS") {
@@ -251,6 +276,8 @@ function WeatherImg(weather) {
         return "../images/Clear.png"
     } else if (weather.toUpperCase() === "SNOW") {
         return "../images/Snow.png"
+    } else if (weather.toUpperCase() === "HAZE") {
+        return "../images/haze.png"
     } else {
         return "../images/Sun.png"
     }
@@ -259,20 +286,21 @@ function WeatherImg(weather) {
 function WeatherBGImg(weather) {
 
     if (weather.toUpperCase() === "RAIN") {
-        document.getElementById('Body').style.backgroundImage = 'url(../images/BgRain.jpg)';
+        return "../images/BgRain.jpg";
     } else if (weather.toUpperCase() === "CLOUDS") {
-        document.getElementById('Body').style.backgroundImage = 'url(../images/BgCloud.jpg)';
+        return "../images/BgCloud.jpg";
     } else if (weather.toUpperCase() === "CLEAR") {
-        document.getElementById('Body').style.backgroundImage = 'url(../images/BgSun.jpg)';
+        return "../images/BgSun.jpg";
     } else if (weather.toUpperCase() === "SNOW") {
-        document.getElementById('Body').style.backgroundImage = 'url(../images/BgSnow.jpg)';
+        return "../images/BgSnow.jpg";
+    } else if (weather.toUpperCase() === "HAZE" || weather.toUpperCase() === "SMOKE") {
+        return "../images/BgHaze.jpg";
     }
 }
 
 /* get the input city value */
 function getName() {
     newCityName = document.getElementById("Input").value;
-    console.log(newCityName);
     seletCity = newCityName;
     let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
     todayWeather(todayApiPath);
@@ -301,12 +329,10 @@ function addShow() {
         document.getElementById("addNew").style.transform = "translateY(-100%)";
         inputDisplay = false;
     }
-    console.log(document.getElementById("addNew").style);
 }
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {
-    console.log(seletCity);
     day1AllyApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
     todayWeather(day1AllyApiPath);
     document.getElementById('detail').style.transform = "translateY(100%)";
@@ -316,49 +342,3 @@ document.getElementById('current-info').addEventListener('click', () => {
     document.getElementById('addNew').style.transform = "translateY(-100%)";
     inputDisplay = false;;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.converter.celsius.value = document.converter.kelvin.value - 273.15;
-//     document.converter.fahrenheit.value = ((document.converter.kelvin.value - 273.15) * 9 / 5) + 32;
