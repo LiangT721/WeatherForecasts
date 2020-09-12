@@ -276,7 +276,7 @@ function WeatherImg(weather) {
         return "../images/Clear.png"
     } else if (weather.toUpperCase() === "SNOW") {
         return "../images/Snow.png"
-    } else if (weather.toUpperCase() === "HAZE") {
+    } else if (weather.toUpperCase() === "HAZE" || weather.toUpperCase() === "SMOKE") {
         return "../images/haze.png"
     } else {
         return "../images/Sun.png"
