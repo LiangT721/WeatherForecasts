@@ -3,6 +3,7 @@ let inputDisplay = false;
 let WeatherIconPath;
 let seletCity = Cookies.get('city');
 let infoToday;
+let optionList;
 let day1All;
 let day2All;
 let day3All;
@@ -22,14 +23,14 @@ function onFailure() {
 LoadingCitys();
 
 function LoadingCitys() {
-    let newCityList = Cookies.get("citylist");
-    if (newCityList === undefined) {
-        newCityList = cityList;
+    console.log("1");
+    console.log(Cookies.get("citylist"));
+    if (Cookies.get("citylist") !== undefined) {
+        optionList = JSON.parse(Cookies.get("citylist"));
+    } else {
+        optionList = cityList;
     }
-    console.log(newCityList);
-    let optionList = JSON.parse(newCityList);
     console.log(optionList);
-
     for (let i = 0; i < optionList.length; i++) {
 
         let newList = document.getElementById("city-name");

@@ -1,12 +1,11 @@
 console.log(1)
 
 let listArea = document.getElementById('cityList');
-let newCityList = Cookies.get("citylist");
-if (newCityList === undefined) {
-    newCityList = cityList;
+if (Cookies.get("citylist") !== undefined) {
+    optionList = JSON.parse(Cookies.get("citylist"));
+} else {
+    optionList = cityList;
 }
-console.log(newCityList);
-let optionList = JSON.parse(newCityList);
 console.log(optionList);
 for (let i = 0; i < optionList.length; i++) {
     let cityLine = document.createElement('div');
