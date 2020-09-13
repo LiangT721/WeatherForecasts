@@ -19,6 +19,27 @@ function onLoading() {
 function onFailure() {
     document.getElementById('city').innerHTML = "No Result!"
 }
+LoadingCitys();
+
+function LoadingCitys() {
+    let newCityList = Cookies.get("citylist");
+    if (newCityList === undefined) {
+        newCityList = cityList;
+    }
+    console.log(newCityList);
+    let optionList = JSON.parse(newCityList);
+    console.log(optionList);
+
+    for (let i = 0; i < optionList.length; i++) {
+
+        let newList = document.getElementById("city-name");
+        let newOption = document.createElement("option");
+        newList.append(newOption);
+        newOption.innerHTML = optionList[i].cityName;
+        newOption.setAttribute("value", optionList[i].cityName);
+    }
+}
+
 
 
 
@@ -26,7 +47,6 @@ function onFailure() {
 if (seletCity === undefined) {
     seletCity = "calgary";
 } else {
-    addCity(seletCity);
     document.getElementById('city-name').value = seletCity;
 };
 
@@ -247,6 +267,8 @@ function WeatherImg(weather) {
         return "../images/Snow.png"
     } else if (weather.toUpperCase() === "HAZE" || weather.toUpperCase() === "SMOKE") {
         return "../images/haze.png"
+    } else if (weather.toUpperCase() === "MIST") {
+        return "../images/mist.png"
     } else {
         return "../images/Sun.png"
     }
@@ -264,41 +286,45 @@ function WeatherBGImg(weather) {
         return "../images/BgSnow.jpg";
     } else if (weather.toUpperCase() === "HAZE" || weather.toUpperCase() === "SMOKE") {
         return "../images/BgHaze.jpg";
+    } else if (weather.toUpperCase() === "MIST") {
+        return "../images/BgMist.jpg"
+    } else {
+        return "../images/BgSun.jpg";
     }
 }
 
-/* get the input city value */
-function getName() {
-    newCityName = document.getElementById("Input").value;
-    seletCity = newCityName;
-    let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-    todayWeather(todayApiPath);
-    apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-    FiveDayWeather(apiPath);
-    Cookies.set('city', seletCity);
-}
+// /* get the input city value */
+// function getName() {
+//     newCityName = document.getElementById("Input").value;
+//     seletCity = newCityName;
+//     let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
+//     todayWeather(todayApiPath);
+//     apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
+//     FiveDayWeather(apiPath);
+//     Cookies.set('city', seletCity);
+// }
 
-/* add the input city to option */
-function addCity() {
-    let newCityOption = document.createElement('option');
-    let cityList = document.getElementById('city-name');
-    cityList.appendChild(newCityOption);
-    newCityOption.innerHTML = seletCity;
-    newCityOption.value = seletCity;
-    document.getElementById("addNew").style.transform = "translateY(-100%)";
-    inputDisplay = false;
-}
+// /* add the input city to option */
+// function addCity() {
+//     let newCityOption = document.createElement('option');
+//     let cityList = document.getElementById('city-name');
+//     cityList.appendChild(newCityOption);
+//     newCityOption.innerHTML = seletCity;
+//     newCityOption.value = seletCity;
+//     document.getElementById("addNew").style.transform = "translateY(-100%)";
+//     inputDisplay = false;
+// }
 
-/*show/hide city-adding windows */
-function addShow() {
-    if (inputDisplay === false) {
-        document.getElementById("addNew").style.transform = "translateY(0)";
-        inputDisplay = true;
-    } else if (inputDisplay === true) {
-        document.getElementById("addNew").style.transform = "translateY(-100%)";
-        inputDisplay = false;
-    }
-}
+// /*show/hide city-adding windows */
+// function addShow() {
+//     if (inputDisplay === false) {
+//         document.getElementById("addNew").style.transform = "translateY(0)";
+//         inputDisplay = true;
+//     } else if (inputDisplay === true) {
+//         document.getElementById("addNew").style.transform = "translateY(-100%)";
+//         inputDisplay = false;
+//     }
+// }
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {
@@ -308,6 +334,9 @@ document.getElementById('current-info').addEventListener('click', () => {
     document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
     document.getElementById('current-info').style.transform = "translateY(60%)";
     document.getElementById('option').style.transform = "translateY(240%)";
-    document.getElementById('addNew').style.transform = "translateY(-100%)";
     inputDisplay = false;;
 });
+
+function addShow() {
+    window.open("../pages/cityAdd.html", "_self");
+}

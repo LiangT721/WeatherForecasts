@@ -107,4 +107,11 @@ body {
 #container #cityList div:last-child {
   border-radius: 0 0 10px 10px;
 }
+
+#container > button {
+  width: 20vw;
+  padding: 1vw;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
 /*# sourceMappingURL=cityAdd.css.map */
