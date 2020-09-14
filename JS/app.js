@@ -32,7 +32,6 @@ function LoadingCitys() {
     }
     console.log(optionList);
     for (let i = 0; i < optionList.length; i++) {
-
         let newList = document.getElementById("city-name");
         let newOption = document.createElement("option");
         newList.append(newOption);

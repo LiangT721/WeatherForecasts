@@ -30,15 +30,28 @@ body {
 }
 
 #container #city-searching {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
   margin: 5vw;
   margin-top: 5vh;
-  width: 50%;
+  width: 60%;
   overflow: hidden;
 }
 
-#container #city-searching input {
-  width: 100%;
+#container #city-searching > div input {
+  width: 40vw;
   font-size: 1.2rem;
+}
+
+#container #city-searching > div > button {
+  width: 15vw;
+  padding: 1vw;
+  border-radius: 10px;
+  text-transform: uppercase;
 }
 
 #container #city-searching #buttons {
@@ -69,6 +82,7 @@ body {
   -ms-flex-line-pack: start;
       align-content: start;
   justify-items: center;
+  overflow: hidden;
 }
 
 #container #cityList > div {
@@ -78,8 +92,13 @@ body {
   height: 5vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 3fr 2fr 1fr 2fr;
-      grid-template-columns: 3fr 2fr 1fr 2fr;
+  -ms-grid-columns: 1fr 6fr 4fr 2fr 4fr;
+      grid-template-columns: 1fr 6fr 4fr 2fr 4fr;
+}
+
+#container #cityList > div .checks {
+  width: 5vw;
+  margin-top: 1.5vh;
 }
 
 #container #cityList > div p {
@@ -90,6 +109,7 @@ body {
 
 #container #cityList > div .temp {
   text-align: right;
+  margin-right: 1vh;
 }
 
 #container #cityList div:first-child {

@@ -1,33 +1,86 @@
 console.log(1)
-
+let deleteList = [];
 let listArea = document.getElementById('cityList');
 if (Cookies.get("citylist") !== undefined) {
-    optionList = JSON.parse(Cookies.get("citylist"));
+    cityListDisplay = JSON.parse(Cookies.get("citylist"));
 } else {
-    optionList = cityList;
+    cityListDisplay = cityList;
 }
-console.log(optionList);
-for (let i = 0; i < optionList.length; i++) {
-    let cityLine = document.createElement('div');
-    listArea.append(cityLine);
-    let cityName = document.createElement('p');
-    let state = document.createElement('p');
-    let country = document.createElement('p');
-    let temp = document.createElement('p');
-    cityLine.append(cityName);
-    cityLine.append(state);
-    cityLine.append(country);
-    cityLine.append(temp);
-    let city = cityName.innerHTML = optionList[i].cityName;
-    state.innerHTML = optionList[i].stateCode;
-    country.innerHTML = optionList[i].countryCode;
-    temp.innerHTML = "15c"
-    temp.setAttribute("id", optionList[i].cityName)
-    temp.setAttribute("class", "temp");
-    let lat = optionList[i].lat;
-    let lng = optionList[i].lng;
-    CallWeather(lat, lng, city);
+console.log(cityListDisplay);
+defaultDisplay();
+
+function defaultDisplay() {
+    listArea.innerHTML = "";
+    for (let i = 0; i < cityListDisplay.length; i++) {
+        let cityLine = document.createElement('div');
+        listArea.append(cityLine);
+        cityLine.setAttribute("class", "city-line");
+        let selectCheck = document.createElement('input');
+        let cityName = document.createElement('p');
+        let state = document.createElement('p');
+        let country = document.createElement('p');
+        let temp = document.createElement('p');
+        let city = cityName.innerHTML = cityListDisplay[i].cityName;
+        let cityCheck = city + "Check";
+        cityLine.append(selectCheck);
+        cityLine.append(cityName);
+        cityLine.append(state);
+        cityLine.append(country);
+        cityLine.append(temp);
+        selectCheck.style.visibility = "hidden";
+        selectCheck.setAttribute("type", "checkbox");
+        selectCheck.setAttribute("class", "checks");
+        selectCheck.setAttribute("id", cityCheck);
+        selectCheck.setAttribute("value", city);
+        selectCheck.setAttribute("onclick", "SelectCity(" + cityCheck + ")");
+        state.innerHTML = cityListDisplay[i].stateCode;
+        country.innerHTML = cityListDisplay[i].countryCode;
+        temp.innerHTML = "15c"
+        temp.setAttribute("id", city + "Temp")
+        temp.setAttribute("class", "temp");
+        let lat = cityListDisplay[i].lat;
+        let lng = cityListDisplay[i].lng;
+        CallWeather(lat, lng, city + "Temp");
+    }
 }
+
+function SelectCity(selectCity) {
+    console.log(selectCity);
+    let deleteCity = selectCity.value;
+    if (selectCity.checked === true) {
+        deleteList.push(deleteCity);
+        console.log(deleteList);
+    } else if (selectCity.checked !== true) {
+        for (let i = 0; i < deleteList.length; i++) {
+            if (deleteCity === deleteList[i]) {
+                deleteList.splice(i, 1);
+                console.log(deleteList);
+            }
+
+        }
+    }
+}
+
+function DeleteCitys() {
+    console.log(cityListDisplay);
+    console.log(deleteList);
+    for (let i = 0; i < cityListDisplay.length; i++) {
+        console.log(cityListDisplay[i].cityName);
+        for (let j = 0; j < deleteList.length; j++) {
+            console.log(deleteList[j]);
+            if (cityListDisplay[i].cityName === deleteList[j]) {
+                cityListDisplay.splice(i, 1);
+                console.log(cityListDisplay);
+            }
+        }
+    }
+    let josnList = JSON.stringify(cityListDisplay);
+    // console.log(josnList);
+    Cookies.set('citylist', josnList);
+    defaultDisplay();
+}
+
+document.getElementById("delete").addEventListener('click', DeleteCitys);
 
 function onLoading() {}
 
@@ -67,20 +120,30 @@ function CallCity(city) {
         Cookies.set('newCityStateCode', newCityStateCode)
         let cityLine = document.createElement('div');
         listArea.append(cityLine);
+        cityLine.setAttribute("class", "city-line");
+        let selectCheck = document.createElement('input');
         let cityName = document.createElement('p');
         let state = document.createElement('p');
         let country = document.createElement('p');
         let temp = document.createElement('p');
+        let cityCheck = newCity + "Check";
+        cityLine.append(selectCheck);
         cityLine.append(cityName);
         cityLine.append(state);
         cityLine.append(country);
         cityLine.append(temp);
+        selectCheck.style.visibility = "hidden";
+        selectCheck.setAttribute("type", "checkbox");
+        selectCheck.setAttribute("class", "checks");
+        selectCheck.setAttribute("id", cityCheck);
+        selectCheck.setAttribute("value", newCity);
+        selectCheck.setAttribute("onclick", "SelectCity(" + cityCheck + ")");
         cityName.innerHTML = newCity;
         state.innerHTML = newCityStateCode;
         country.innerHTML = newCityCountyCode;
-        temp.setAttribute("id", newCity)
+        temp.setAttribute("id", newCity + "Temp")
         temp.setAttribute("class", "temp");
-        CallWeather(newCityLat, newCityLng, newCity);
+        CallWeather(newCityLat, newCityLng, newCity + "Temp");
     }
     let cityApi = "https://api.opencagedata.com/geocode/v1/json?q=Rua+Cafel%C3%A2ndia%2C+Carapicu%C3%ADba%2C+" + city + "&key=73bb9025ce93477e984d47732d9edeea&pretty=1&language=en"
 
@@ -92,8 +155,6 @@ function CallWeather(lat, lng, city) {
 
     function onSuccess() {
         infoToday = JSON.parse(this.ajax.responseText);
-        console.log(infoToday);
-        console.log(document.getElementById(city));
         document.getElementById(city).innerHTML = Math.round((infoToday.current.temp - 273.15) * 10) / 10 + "&#176C";
 
     }
@@ -106,18 +167,19 @@ function AddCityList() {
     let newCityData = {
         cityName: newCity,
         country: newCityCounty,
-        countryCode: newCityCounty,
+        countryCode: newCityCountyCode,
         state: newCityState,
         stateCode: newCityStateCode,
         lat: newCityLat,
         lng: newCityLng,
     }
-    console.log(optionList);
-    optionList.push(newCityData);
-    console.log(optionList);
-    let josnList = JSON.stringify(optionList);
+    console.log(cityListDisplay);
+    cityListDisplay.push(newCityData);
+    console.log(cityListDisplay);
+    let josnList = JSON.stringify(cityListDisplay);
     console.log(josnList);
     Cookies.set('citylist', josnList);
+    defaultDisplay();
 }
 
 document.getElementById("add-btn").addEventListener('click', AddCityList);
@@ -125,3 +187,17 @@ document.getElementById("add-btn").addEventListener('click', AddCityList);
 function back() {
     window.open("../index.html", "_self");
 }
+
+function MutiSelect() {
+    let checkCitys = document.getElementsByClassName("checks");
+
+    for (let i = 0; i < checkCitys.length; i++) {
+        if (checkCitys[i].style.visibility === "hidden") {
+            checkCitys[i].style.visibility = "visible";
+        } else if (checkCitys[i].style.visibility === "visible") {
+            checkCitys[i].style.visibility = "hidden";
+        }
+    }
+
+}
+document.getElementById('select').addEventListener('click', MutiSelect);
