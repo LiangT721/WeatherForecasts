@@ -44,11 +44,33 @@ function LoadingCitys() {
 
 
 /*check cookies */
-if (seletCity === undefined) {
-    seletCity = "calgary";
+function defaultCityDisplay() {
+    for (let i = 0; i < optionList.length; i++) {
+        if (seletCity === optionList[i].cityName) {
+            return true;
+        }
+    }
+    return false;
+}
+defaultCityDisplay();
+if (defaultCityDisplay() === false) {
+    seletCity = optionList[0].cityName;
+    document.getElementById('city-name').value = seletCity;
 } else {
     document.getElementById('city-name').value = seletCity;
 };
+
+
+
+
+// if (seletCity === undefined) {
+//     seletCity = "calgary";
+// } else {
+//     document.getElementById('city-name').value = seletCity;
+// };
+
+
+
 
 /*check the option selected */
 document.getElementById('city-name').addEventListener('change', function() {
@@ -293,38 +315,7 @@ function WeatherBGImg(weather) {
     }
 }
 
-// /* get the input city value */
-// function getName() {
-//     newCityName = document.getElementById("Input").value;
-//     seletCity = newCityName;
-//     let todayApiPath = "http://api.openweathermap.org/data/2.5/weather?q=" + seletCity + "&appid=9fe9c54185524ddf2a73eff1caf355a5"
-//     todayWeather(todayApiPath);
-//     apiPath = "http://api.openweathermap.org/data/2.5/forecast?q=" + seletCity + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-//     FiveDayWeather(apiPath);
-//     Cookies.set('city', seletCity);
-// }
 
-// /* add the input city to option */
-// function addCity() {
-//     let newCityOption = document.createElement('option');
-//     let cityList = document.getElementById('city-name');
-//     cityList.appendChild(newCityOption);
-//     newCityOption.innerHTML = seletCity;
-//     newCityOption.value = seletCity;
-//     document.getElementById("addNew").style.transform = "translateY(-100%)";
-//     inputDisplay = false;
-// }
-
-// /*show/hide city-adding windows */
-// function addShow() {
-//     if (inputDisplay === false) {
-//         document.getElementById("addNew").style.transform = "translateY(0)";
-//         inputDisplay = true;
-//     } else if (inputDisplay === true) {
-//         document.getElementById("addNew").style.transform = "translateY(-100%)";
-//         inputDisplay = false;
-//     }
-// }
 
 /* make the current weather full screen */
 document.getElementById('current-info').addEventListener('click', () => {

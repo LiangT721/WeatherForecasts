@@ -1,13 +1,7 @@
-console.log(1)
+let newCityLat, newCityLng, newCity, newCityCounty, newCityCountyCode, newCityState, newCityStateCode;
 let deleteList = [];
 let listArea = document.getElementById('cityList');
-if (Cookies.get("citylist") !== undefined) {
-    cityListDisplay = JSON.parse(Cookies.get("citylist"));
-} else {
-    cityListDisplay = cityList;
-}
-console.log(cityListDisplay);
-defaultDisplay();
+
 
 function defaultDisplay() {
     listArea.innerHTML = "";
@@ -44,49 +38,17 @@ function defaultDisplay() {
     }
 }
 
-function SelectCity(selectCity) {
-    console.log(selectCity);
-    let deleteCity = selectCity.value;
-    if (selectCity.checked === true) {
-        deleteList.push(deleteCity);
-        console.log(deleteList);
-    } else if (selectCity.checked !== true) {
-        for (let i = 0; i < deleteList.length; i++) {
-            if (deleteCity === deleteList[i]) {
-                deleteList.splice(i, 1);
-                console.log(deleteList);
-            }
+function CallWeather(lat, lng, city) {
 
-        }
+    function onSuccess() {
+        infoToday = JSON.parse(this.ajax.responseText);
+        document.getElementById(city).innerHTML = Math.round((infoToday.current.temp - 273.15) * 10) / 10 + "&#176C";
+
     }
+    let weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=daily&appid=21ef57559fd77955dacb8ed12fe0b3a3";
+    let OneDayWeather = new Api("GET", weatherApi, onSuccess, onLoading, onFailure);
+    OneDayWeather.get(city);
 }
-
-function DeleteCitys() {
-    console.log(cityListDisplay);
-    console.log(deleteList);
-    for (let i = 0; i < cityListDisplay.length; i++) {
-        console.log(cityListDisplay[i].cityName);
-        for (let j = 0; j < deleteList.length; j++) {
-            console.log(deleteList[j]);
-            if (cityListDisplay[i].cityName === deleteList[j]) {
-                cityListDisplay.splice(i, 1);
-                console.log(cityListDisplay);
-            }
-        }
-    }
-    let josnList = JSON.stringify(cityListDisplay);
-    // console.log(josnList);
-    Cookies.set('citylist', josnList);
-    defaultDisplay();
-}
-
-document.getElementById("delete").addEventListener('click', DeleteCitys);
-
-function onLoading() {}
-
-function onFailure() {}
-
-let newCityLat, newCityLng, newCity, newCityCounty, newCityCountyCode, newCityState, newCityStateCode;
 
 function SearchCity() {
     newCity = document.getElementById("new-city").value;
@@ -95,7 +57,6 @@ function SearchCity() {
     CallCity(newCity);
 }
 
-document.getElementById("search-btn").addEventListener("click", SearchCity);
 
 function CallCity(city) {
     function onSuccess() {
@@ -151,17 +112,7 @@ function CallCity(city) {
     cityList.get();
 }
 
-function CallWeather(lat, lng, city) {
 
-    function onSuccess() {
-        infoToday = JSON.parse(this.ajax.responseText);
-        document.getElementById(city).innerHTML = Math.round((infoToday.current.temp - 273.15) * 10) / 10 + "&#176C";
-
-    }
-    let weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=daily&appid=21ef57559fd77955dacb8ed12fe0b3a3";
-    let OneDayWeather = new Api("GET", weatherApi, onSuccess, onLoading, onFailure);
-    OneDayWeather.get(city);
-}
 
 function AddCityList() {
     let newCityData = {
@@ -173,20 +124,27 @@ function AddCityList() {
         lat: newCityLat,
         lng: newCityLng,
     }
-    console.log(cityListDisplay);
-    cityListDisplay.push(newCityData);
-    console.log(cityListDisplay);
-    let josnList = JSON.stringify(cityListDisplay);
-    console.log(josnList);
-    Cookies.set('citylist', josnList);
-    defaultDisplay();
+    if (cityListCheck() === true) {
+        console.log(cityListDisplay);
+        cityListDisplay.push(newCityData);
+        console.log(cityListDisplay);
+        let josnList = JSON.stringify(cityListDisplay);
+        console.log(josnList);
+        Cookies.set('citylist', josnList);
+        Cookies.set('city', newCity);
+        defaultDisplay();
+    }
 }
 
-document.getElementById("add-btn").addEventListener('click', AddCityList);
-
-function back() {
-    window.open("../index.html", "_self");
+function cityListCheck() {
+    for (let i = 0; i < cityListDisplay.length; i++) {
+        if (newCity === cityListDisplay[i].cityName) {
+            return false;
+        }
+    }
+    return true;
 }
+
 
 function MutiSelect() {
     let checkCitys = document.getElementsByClassName("checks");
@@ -200,4 +158,66 @@ function MutiSelect() {
     }
 
 }
+
+
+
+function SelectCity(selectCity) {
+    console.log(selectCity);
+    let deleteCity = selectCity.value;
+    if (selectCity.checked === true) {
+        deleteList.push(deleteCity);
+        console.log(deleteList);
+    } else if (selectCity.checked !== true) {
+        for (let i = 0; i < deleteList.length; i++) {
+            if (deleteCity === deleteList[i]) {
+                deleteList.splice(i, 1);
+                console.log(deleteList);
+            }
+
+        }
+    }
+}
+
+function DeleteCitys() {
+    console.log(cityListDisplay);
+    console.log(deleteList);
+    for (let i = 0; i < cityListDisplay.length; i++) {
+        console.log(cityListDisplay[i].cityName);
+        for (let j = 0; j < deleteList.length; j++) {
+            console.log(deleteList[j]);
+            if (cityListDisplay[i].cityName === deleteList[j]) {
+                cityListDisplay.splice(i, 1);
+                console.log(cityListDisplay);
+            }
+        }
+    }
+    let josnList = JSON.stringify(cityListDisplay);
+    // console.log(josnList);
+    Cookies.set('citylist', josnList);
+    defaultDisplay();
+}
+
+
+function onLoading() {}
+
+function onFailure() {}
+
+function back() {
+    window.open("../index.html", "_self");
+}
+
+
+
+
+
+if (Cookies.get("citylist") !== undefined) {
+    cityListDisplay = JSON.parse(Cookies.get("citylist"));
+} else {
+    cityListDisplay = cityList;
+}
+console.log(cityListDisplay);
+defaultDisplay();
 document.getElementById('select').addEventListener('click', MutiSelect);
+document.getElementById("delete").addEventListener('click', DeleteCitys);
+document.getElementById("search-btn").addEventListener("click", SearchCity);
+document.getElementById("add-btn").addEventListener('click', AddCityList);
