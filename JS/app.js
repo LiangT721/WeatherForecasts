@@ -3,7 +3,6 @@ let dayFiveWeatherData = [];
 let dayChangeData = [];
 let selectCity = Cookies.get('city');
 let optionList;
-/* Basic Api Class set */
 
 
 function onLoading() {
@@ -14,7 +13,7 @@ function onFailure() {
     document.getElementById('city').innerHTML = "No Result!"
 }
 
-
+/*check cookies of city list */
 function LoadingCitys() {
     if (Cookies.get("citylist") !== undefined) {
         optionList = JSON.parse(Cookies.get("citylist"));
@@ -29,11 +28,8 @@ function LoadingCitys() {
         newOption.setAttribute("value", optionList[i].cityName);
     }
 }
-LoadingCitys();
 
-
-
-/*check cookies */
+/*check cookies of default city */
 function defaultCityDisplay() {
     for (let i = 0; i < optionList.length; i++) {
         if (selectCity === optionList[i].cityName) {
@@ -48,26 +44,6 @@ function defaultCityDisplay() {
     selectCityLng = optionList[0].lng;
     document.getElementById('city-name').value = selectCity;
 }
-defaultCityDisplay();
-
-
-/*check the option selected */
-document.getElementById('city-name').addEventListener('change', function() {
-        selectCity = this.value;
-        Cookies.set('city', selectCity);
-        defaultCityDisplay();
-        getWeather(selectCityLat, selectCityLng, selectCity);
-
-    })
-    /* make the current weather full screen */
-document.getElementById('current-info').addEventListener('click', () => {
-    document.getElementById('detail').style.transform = "translateY(100%)";
-    document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
-    document.getElementById('current-info').style.transform = "translateY(60%)";
-    document.getElementById('option').style.transform = "translateY(240%)";
-
-    getWeather(selectCityLat, selectCityLng, selectCity);
-});
 
 /*get weather data */
 function getWeather(lat, lng, city) {
@@ -161,8 +137,7 @@ function getWeather(lat, lng, city) {
     let FiveDayWeather = new Api("GET", weatherApi, onSuccess, onLoading, onFailure);
     FiveDayWeather.get(city);
 }
-getWeather(selectCityLat, selectCityLng, selectCity);
-
+/* Change the detail information of different days*/
 function DayChange(day) {
     document.getElementById('city').innerHTML = day.city;
     document.getElementById('Body').style.backgroundImage = "url(" + WeatherBGImg(day.main) + ")";
@@ -182,12 +157,30 @@ function DayChange(day) {
     document.getElementById('current-info').style.transform = "translateY(0)";
     document.getElementById('option').style.transform = "translateY(0)";
 }
-
-
-
-
-
-
+/* to adding page */
 function addShow() {
     window.open("../pages/cityAdd.html", "_self");
 }
+
+/*check the option selected */
+document.getElementById('city-name').addEventListener('change', function() {
+        selectCity = this.value;
+        Cookies.set('city', selectCity);
+        defaultCityDisplay();
+        getWeather(selectCityLat, selectCityLng, selectCity);
+
+    })
+    /* make the current weather full screen */
+document.getElementById('current-info').addEventListener('click', () => {
+    document.getElementById('detail').style.transform = "translateY(100%)";
+    document.getElementById('five-day-forecasts').style.transform = "translateY(120%)";
+    document.getElementById('current-info').style.transform = "translateY(60%)";
+    document.getElementById('option').style.transform = "translateY(240%)";
+
+    getWeather(selectCityLat, selectCityLng, selectCity);
+});
+
+
+LoadingCitys();
+defaultCityDisplay();
+getWeather(selectCityLat, selectCityLng, selectCity);
