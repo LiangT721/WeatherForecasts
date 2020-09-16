@@ -18,6 +18,7 @@ class Api {
     get() {
         let holder = this;
         this.ajax.onreadystatechange = function() {
+            console.log(this.status);
             if (this.readyState == 4 && this.status == 200) {
                 holder.successFunction();
             } else if (this.readyState != 4) {

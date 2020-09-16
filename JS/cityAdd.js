@@ -45,7 +45,7 @@ function CallWeather(lat, lng, city) {
         document.getElementById(city).innerHTML = Math.round((infoToday.current.temp - 273.15) * 10) / 10 + "&#176C";
 
     }
-    let weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&exclude=daily&appid=21ef57559fd77955dacb8ed12fe0b3a3";
+    let weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lng + "&appid=21ef57559fd77955dacb8ed12fe0b3a3";
     let OneDayWeather = new Api("GET", weatherApi, onSuccess, onLoading, onFailure);
     OneDayWeather.get(city);
 }

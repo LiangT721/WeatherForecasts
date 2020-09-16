@@ -24,9 +24,9 @@
             <button id="add" onclick="addShow()">Add</button>
         </div>
         <div id="current-info">
-            <p id="city">today</p>
-            <div><span id="day">Today</span>&nbsp&nbsp<span id="date"> 2020-9-6</span></div>
-            <p id="main">sun</p>
+            <p id="city">city</p>
+            <div><span id="day">days</span>&nbsp&nbsp<span id="date"> 2020-9-6</span></div>
+            <p id="description">sun</p>
             <div id="temp">
                 <p id="temp-num">15</p>
                 <p id="sign">&#176C</p>
@@ -35,35 +35,35 @@
                 <span id="feels-like">13</span>&#176C</p>
         </div>
         <div id="five-day-forecasts">
-            <div id="dayOne" onclick="DayChange(day1All)">
+            <div id="dayOne" onclick="DayChange(dayFiveWeatherData[0])">
                 <p id="day1" class="day">Monday</p>
                 <div class="day-Temp" id="day1div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayOneImg">
                     <p class="dayTemp"><span id="dayOneTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayTwo" onclick="DayChange(day2All)">
+            <div id="dayTwo" onclick="DayChange(dayFiveWeatherData[1])">
                 <p id="day2" class="day">Monday</p>
                 <div class="day-Temp" id="day2div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayTwoImg">
                     <p class="dayTemp"><span id="dayTwoTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayThree" onclick="DayChange(day3All)">
+            <div id="dayThree" onclick="DayChange(dayFiveWeatherData[2])">
                 <p id="day3" class="day">Monday</p>
                 <div class="day-Temp" id="day3div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayThreeImg">
                     <p class="dayTemp"><span id="dayThreeTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayFour" onclick="DayChange(day4All)">
+            <div id="dayFour" onclick="DayChange(dayFiveWeatherData[3])">
                 <p id="day4" class="day">Monday</p>
                 <div class="day-Temp" id="day4div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayFourImg">
                     <p class="dayTemp"><span id="dayFourTemp">15</span>&#176</p>
                 </div>
             </div>
-            <div id="dayFive" onclick="DayChange(day5All)">
+            <div id="dayFive" onclick="DayChange(dayFiveWeatherData[4])">
                 <p id="day5" class="day">Monday</p>
                 <div class="day-Temp" id="day5div">
                     <img src="./images/sun.png" alt="" class="dayImg" id="dayFiveImg">
@@ -94,12 +94,13 @@
                 <p>Humidity</p>
                 <p><span id="Humidity">38</span>%</p>
             </div>
-            <div id="visibility">
-                <p>Visibility</p>
-                <p><span id="Visibility">50</span>KM</p>
+            <div id="uvi">
+                <p>UVI</p>
+                <p><span id="Uvi">50</span></p>
             </div>
         </div>
     </div>
+    <script src="./JS/Function.js"></script>
     <script src="./JS/cityList.js"></script>
     <script src="./JS/API.js"></script>
     <script src="./JS/app.js "></script>
