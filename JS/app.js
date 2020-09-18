@@ -1,11 +1,11 @@
 class Api {
-    content;
-    ajax;
-    type;
-    location;
-    successFunction;
-    loadingFunction;
-    failureFunction;
+    content
+    ajax
+    type
+    location
+    successFunction
+    loadingFunction
+    failureFunction
     constructor(httpType, url, success, loading, failure) {
         this.ajax = new XMLHttpRequest();
         this.type = httpType;
