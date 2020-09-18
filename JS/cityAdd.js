@@ -53,8 +53,10 @@ function CallWeather(lat, lng, city) {
 function SearchCity() {
     newCity = document.getElementById("new-city").value;
     console.log(newCity);
-    Cookies.set('newCity', newCity);
-    CallCity(newCity);
+    document.getElementById('searching-city').innerHTML = ""
+    if (newCity !== "" || newCity === " ") {
+        CallCity(newCity);
+    }
 }
 
 
@@ -67,38 +69,28 @@ function CallCity(city) {
         newCityCounty = city.results[0].components.country;
         newCityCountyCode = city.results[0].components.country_code;
         if (city.results[0].components.state_code === undefined) {
-            newCityState = city.results[0].components.town;
-            newCityStateCode = city.results[0].components.town;
+            newCityStateCode = city.results[0].components.state;
         } else {
-            newCityState = city.results[0].components.state;
             newCityStateCode = city.results[0].components.state_code;
         }
-        Cookies.set('newCityLat', newCityLat)
-        Cookies.set('newCityLng', newCityLng)
-        Cookies.set('newCityCounty', newCityCounty)
-        Cookies.set('newCityCountyCode', newCityCountyCode)
-        Cookies.set('newCityState', newCityState)
-        Cookies.set('newCityStateCode', newCityStateCode)
+        // Cookies.set('newCityLat', newCityLat)
+        // Cookies.set('newCityLng', newCityLng)
+        // Cookies.set('newCityCounty', newCityCounty)
+        // Cookies.set('newCityCountyCode', newCityCountyCode)
+        // Cookies.set('newCityState', newCityState)
+        // Cookies.set('newCityStateCode', newCityStateCode)
+        let searchCity = document.getElementById('searching-city');
+        console.log(searchCity);
         let cityLine = document.createElement('div');
-        listArea.append(cityLine);
-        cityLine.setAttribute("class", "city-line");
-        let selectCheck = document.createElement('input');
+        searchCity.append(cityLine);
         let cityName = document.createElement('p');
         let state = document.createElement('p');
         let country = document.createElement('p');
         let temp = document.createElement('p');
-        let cityCheck = newCity + "Check";
-        cityLine.append(selectCheck);
         cityLine.append(cityName);
         cityLine.append(state);
         cityLine.append(country);
         cityLine.append(temp);
-        selectCheck.style.visibility = "hidden";
-        selectCheck.setAttribute("type", "checkbox");
-        selectCheck.setAttribute("class", "checks");
-        selectCheck.setAttribute("id", cityCheck);
-        selectCheck.setAttribute("value", newCity);
-        selectCheck.setAttribute("onclick", "SelectCity(" + cityCheck + ")");
         cityName.innerHTML = newCity;
         state.innerHTML = newCityStateCode;
         country.innerHTML = newCityCountyCode;
@@ -132,6 +124,7 @@ function AddCityList() {
         console.log(josnList);
         Cookies.set('citylist', josnList);
         Cookies.set('city', newCity);
+        Cookies.set('newCity', newCity);
         defaultDisplay();
     }
 }
@@ -182,9 +175,9 @@ function DeleteCitys() {
     console.log(cityListDisplay);
     console.log(deleteList);
     for (let i = 0; i < cityListDisplay.length; i++) {
-        console.log(cityListDisplay[i].cityName);
+        // console.log(cityListDisplay[i].cityName);
         for (let j = 0; j < deleteList.length; j++) {
-            console.log(deleteList[j]);
+            // console.log(deleteList[j]);
             if (cityListDisplay[i].cityName === deleteList[j]) {
                 cityListDisplay.splice(i, 1);
                 console.log(cityListDisplay);
@@ -219,5 +212,6 @@ console.log(cityListDisplay);
 defaultDisplay();
 document.getElementById('select').addEventListener('click', MutiSelect);
 document.getElementById("delete").addEventListener('click', DeleteCitys);
-document.getElementById("search-btn").addEventListener("click", SearchCity);
+// document.getElementById("search-btn").addEventListener("click", SearchCity);
 document.getElementById("add-btn").addEventListener('click', AddCityList);
+document.getElementById("new-city").addEventListener('input', SearchCity);

@@ -73,7 +73,7 @@ body {
 #container #cityList {
   margin-top: 5vh;
   width: 90%;
-  height: 70vh;
+  height: 55vh;
   display: -ms-grid;
   display: grid;
   -webkit-box-align: center;
@@ -86,6 +86,7 @@ body {
 }
 
 #container #cityList > div {
+  overflow: hidden;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
@@ -129,9 +130,48 @@ body {
 }
 
 #container > button {
+  margin-top: 2vh;
   width: 20vw;
   padding: 1vw;
   border-radius: 20px;
   text-transform: uppercase;
+}
+
+#searching-city {
+  margin-top: 5vh;
+  width: 90%;
+  height: 5vh;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: start;
+      align-content: start;
+  justify-items: center;
+  overflow: hidden;
+}
+
+#searching-city > div {
+  width: 90%;
+  height: 5vh;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 6fr 4fr 2fr 4fr;
+      grid-template-columns: 6fr 4fr 2fr 4fr;
+}
+
+#searching-city > div p {
+  line-height: 5vh;
+  text-transform: uppercase;
+  padding: 0 2vw;
+}
+
+#searching-city > div .temp {
+  text-align: right;
+  margin-right: 1vh;
 }
 /*# sourceMappingURL=cityAdd.css.map */
